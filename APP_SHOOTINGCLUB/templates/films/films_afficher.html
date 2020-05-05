@@ -13,21 +13,19 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>Titre</th>
-                    <th>Durée</th>
-                    <th>Description</th>
-                    <th>Affiche</th>
-                    <th>Date sortie</th>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Stand de tir</th>
+                    <th>Adresse</th>
                 </tr>
             </thead>
             {% for row in data %}
                 <tr>
-                    <td>{{ row.id_film }}</td>
-                    <td>{{ row.nom_film }}</td>
-                    <td>{{ row.duree_film|default("", True) }}</td>
-                    <td>{{ row.description_film|default("", True) }}</td>
-                    <td><img src={{ row.cover_link_film|default("", True) }} style="width:auto;max-height: 465px;" alt = "Covid-19 grand semi-confinement mod 104"></td>
-                    <td>{{ row.date_sortie_film|default("", True) }}</td>                    
+                    <td>{{ row.id_concours }}</td>
+                    <td>{{ row.date_concours }}</td>
+                    <td>{{ row.type_concours|default("", True) }}</td>
+                    <td>{{ row.nom_stand_de_tir|default("", True) }}</td>
+                    <td>{{ row.adresse_stand_de_tir|default("", True) }}</td>
                     <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Edit</a> </td>
                     <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Delete</a> </td>
                     <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Add</a> </td>
