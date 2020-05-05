@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %} Afficher FILMS {% endblock %}
+{% block body %}
+    <div class="home">
+        
+        <form method="POST" action="">
+
+        <div>
+            {{ msgHtml }}
+        </div>
+        <br>
+        <table border="1" cellpadding="5" cellspacing="5">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Titre</th>
+                    <th>Durée</th>
+                    <th>Description</th>
+                    <th>Affiche</th>
+                    <th>Date sortie</th>
+                </tr>
+            </thead>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row.id_film }}</td>
+                    <td>{{ row.nom_film }}</td>
+                    <td>{{ row.duree_film|default("", True) }}</td>
+                    <td>{{ row.description_film|default("", True) }}</td>
+                    <td><img src={{ row.cover_link_film|default("", True) }} style="width:auto;max-height: 465px;" alt = "Covid-19 grand semi-confinement mod 104"></td>
+                    <td>{{ row.date_sortie_film|default("", True) }}</td>                    
+                    <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Edit</a> </td>
+                    <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Delete</a> </td>
+                    <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Add</a> </td>
+                </tr>
+            {% endfor %}
+        </table>
+        </form>
+        
+    </div>
+{% endblock %}

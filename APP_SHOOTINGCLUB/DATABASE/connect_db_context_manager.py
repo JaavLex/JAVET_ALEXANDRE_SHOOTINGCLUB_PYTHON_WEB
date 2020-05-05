@@ -10,7 +10,7 @@
 # Si on utilise MAMP il faut choisir import mysql.connector
 # https://dev.mysql.com/downloads/connector/python/
 import pymysql
-from APP_FILMS.DATABASE.erreurs import *
+from APP_SHOOTINGCLUB.DATABASE.erreurs import *
 # Petits messages "flash", échange entre Python et Jinja dans une page en HTML
 from flask import flash
 
