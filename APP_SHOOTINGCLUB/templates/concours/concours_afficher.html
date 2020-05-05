@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %} Afficher concours {% endblock %}
+{% block body %}
+    <div class="home">
+        
+        <form method="POST" action="">
+
+        <div>
+            {{ msgHtml }}
+        </div>
+        <br>
+        <table border="1" cellpadding="5" cellspacing="5">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Stand de tir</th>
+                    <th>Adresse</th>
+                </tr>
+            </thead>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row.id_concours }}</td>
+                    <td>{{ row.date_concours }}</td>
+                    <td>{{ row.type_concours|default("", True) }}</td>
+                    <td>{{ row.nom_stand_de_tir|default("", True) }}</td>
+                    <td>{{ row.adresse_stand_de_tir|default("", True) }}</td>
+                    <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Edit</a> </td>
+                    <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Delete</a> </td>
+                    <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Add</a> </td>
+                </tr>
+            {% endfor %}
+        </table>
+        </form>
+        
+    </div>
+{% endblock %}

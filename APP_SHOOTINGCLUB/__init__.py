@@ -17,5 +17,5 @@ obj_mon_application.secret_key = '_vogonAmiral_)?^'
 # OM 2020.03.25 Tout commence ici par "indiquer" les routes de l'application.
 from APP_SHOOTINGCLUB import routes
 from APP_SHOOTINGCLUB.CONCOURS import routes_gestion_concours
-from APP_SHOOTINGCLUB.GENRES import routes_gestion_genres
-from APP_SHOOTINGCLUB.GENRES_FILMS import routes_gestion_genres_films
+from APP_SHOOTINGCLUB.PERSONNE import routes_gestion_personne
+from APP_SHOOTINGCLUB.PERSONNE_CONCOURS import routes_gestion_genres_films
