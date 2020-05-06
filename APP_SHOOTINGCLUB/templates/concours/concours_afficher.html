@@ -29,7 +29,7 @@
                     <td>{{ row.type_concours|default("", True) }}</td>
                     <td>{{ row.nom_stand_de_tir|default("", True) }}</td>
                     <td>{{ row.adresse_stand_de_tir|default("", True) }}</td>
-                    <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Edit</a> </td>
+                    <td> <a href="{{ url_for('concours_edit', id_concours_edit_html=row.id_concours) }}">Edit</a> </td>
                     <td> <a href="{{ url_for('concours_select_delete', id_concours_delete_html=row.id_concours) }}">Delete</a> </td>
                     <td> <a href="{{ url_for('concours_add') }}">Add</a> </td>
                 </tr>

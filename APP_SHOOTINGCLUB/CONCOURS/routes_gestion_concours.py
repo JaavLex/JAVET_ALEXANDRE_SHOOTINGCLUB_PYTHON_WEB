@@ -195,3 +195,131 @@ def concours_delete():
             # OM 2019.04.02 Envoie la page "HTML" au serveur.
     return render_template('concours/concours_afficher.html', data=data_concours)
 
+@obj_mon_application.route('/concours_edit', methods=['POST', 'GET'])
+def concours_edit():
+    # OM 2020.04.07 Les données sont affichées dans un formulaire, l'affichage de la sélection
+    # d'une seule ligne choisie par le bouton "edit" dans le formulaire "concours_afficher.html"
+    if request.method == 'GET':
+        try:
+            # Récupérer la valeur de "id_concours" du formulaire html "concours_afficher.html"
+            # l'utilisateur clique sur le lien "edit" et on récupére la valeur de "id_concours"
+            # grâce à la variable "id_concours_edit_html"
+            # <a href="{{ url_for('concours_edit', id_concours_edit_html=row.id_concours) }}">Edit</a>
+            id_concours_edit = request.values['id_concours_edit_html']
+
+            # Pour afficher dans la console la valeur de "id_concours_edit", une façon simple de se rassurer,
+            # sans utiliser le DEBUGGER
+            print(id_concours_edit)
+
+            # Constitution d'un dictionnaire et insertion dans la BD
+            valeur_select_dictionnaire = {"value_id_concours": id_concours_edit}
+
+            # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
+            obj_actions_concours = GestionConcours()
+
+            # OM 2019.04.02 La commande MySql est envoyée à la BD
+            data_id_concours = obj_actions_concours.edit_concours_data(valeur_select_dictionnaire)
+            print("dataIdconcours ", data_id_concours, "type ", type(data_id_concours))
+            # Message ci-après permettent de donner un sentiment rassurant aux utilisateurs.
+            flash(f"Editer le concours d'un per !!!")
+
+        except (Exception,
+                pymysql.err.OperationalError,
+                pymysql.ProgrammingError,
+                pymysql.InternalError,
+                pymysql.IntegrityError,
+                TypeError) as erreur:
+
+            # On indique un problème, mais on ne dit rien en ce qui concerne la résolution.
+            print("Problème avec la BD ! : %s", erreur)
+            # OM 2020.04.09 On dérive "Exception" dans "MaBdErreurConnexion" fichier "erreurs.py"
+            # Ainsi on peut avoir un message d'erreur personnalisé.
+            raise MaBdErreurConnexion(f"RGG Exception {msg_erreurs['ErreurConnexionBD']['message']}"
+                                      f"et son status {msg_erreurs['ErreurConnexionBD']['status']}")
+
+    return render_template("concours/concours_edit.html", data=data_id_concours)
+
+
+# ---------------------------------------------------------------------------------------------------
+# OM 2020.04.07 Définition d'une "route" /concours_update , cela va permettre de programmer quelles actions sont réalisées avant de l'envoyer
+# au navigateur par la méthode "render_template".
+# On change la valeur d'un concours de concours par la commande MySql "UPDATE"
+# ---------------------------------------------------------------------------------------------------
+@obj_mon_application.route('/concours_update', methods=['POST', 'GET'])
+def concours_update():
+    # DEBUG bon marché : Pour afficher les méthodes et autres de la classe "flask.request"
+    print(dir(request))
+    # OM 2020.04.07 Les données sont affichées dans un formulaire, l'affichage de la sélection
+    # d'une seule ligne choisie par le bouton "edit" dans le formulaire "concours_afficher.html"
+    # Une fois que l'utilisateur à modifié la valeur du concours alors il va appuyer sur le bouton "UPDATE"
+    # donc en "POST"
+    if request.method == 'POST':
+        try:
+            # DEBUG bon marché : Pour afficher les valeurs contenues dans le formulaire
+            print("request.values ",request.values)
+
+            # Récupérer la valeur de "id_concours" du formulaire html "concours_edit.html"
+            # l'utilisateur clique sur le lien "edit" et on récupére la valeur de "id_concours"
+            # grâce à la variable "id_concours_edit_html"
+            # <a href="{{ url_for('concours_edit', id_concours_edit_html=row.id_concours) }}">Edit</a>
+            id_concours_edit = request.values['id_concours_edit_html']
+            date_concours_edit = request.values['date_concours_edit_html']
+            type_concours_edit = request.values['type_concours_edit_html']
+            stand_de_tir_edit = request.values['stand_de_tir_edit_html']
+
+            # Récupère le contenu du champ "intitule_concours" dans le formulaire HTML "concoursEdit.html"
+
+            valeur_edit_list = [{'value_id_concours': id_concours_edit, 'value_date_concours': date_concours_edit, 'value_type_concours': type_concours_edit, 'value_stand_de_tir': stand_de_tir_edit}]
+            # On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
+            # des valeurs avec des caractères qui ne sont pas des lettres.
+            # Accepte le trait d'union ou l'apostrophe, et l'espace entre deux mots, mais pas plus d'une occurence.
+            if not re.match("(.*?)", date_concours_edit):
+                # En cas d'erreur, conserve la saisie fausse, afin que l'utilisateur constate sa misérable faute
+                # Récupère le contenu du champ "intitule_concours" dans le formulaire HTML "concoursEdit.html"
+                #nom_pers = request.values['name_edit_intitule_concours_html']
+                # Message humiliant à l'attention de l'utilisateur.
+                flash(f"Une entrée...incorrecte !! Pas de chiffres, de caractères spéciaux, d'espace à double, "
+                      f"de double apostrophe, de double trait union et ne doit pas être vide.", "Danger")
+
+                # On doit afficher à nouveau le formulaire "concours_edit.html" à cause des erreurs de "claviotage"
+                # Constitution d'une liste pour que le formulaire d'édition "concours_edit.html" affiche à nouveau
+                # la possibilité de modifier l'entrée
+                # Exemple d'une liste : [{'id_concours': 13, 'intitule_concours': 'philosophique'}]
+                valeur_edit_list = [{'value_id_concours': id_concours_edit, 'value_date_concours': date_concours_edit, 'value_type_concours': type_concours_edit, 'value_stand_de_tir': stand_de_tir_edit}]
+
+                # DEBUG bon marché :
+                # Pour afficher le contenu et le type de valeurs passées au formulaire "concours_edit.html"
+                print(valeur_edit_list, "type ..",  type(valeur_edit_list))
+                return render_template('concours/concours_edit.html', data=valeur_edit_list)
+            else:
+                # Constitution d'un dictionnaire et insertion dans la BD
+                valeur_update_dictionnaire = {'value_id_concours': id_concours_edit, 'value_date_concours': date_concours_edit, 'value_type_concours': type_concours_edit, 'value_stand_de_tir': stand_de_tir_edit}
+
+                # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
+                obj_actions_concours = GestionConcours()
+
+                # La commande MySql est envoyée à la BD
+                data_id_concours = obj_actions_concours.update_concours_data(valeur_update_dictionnaire)
+                # DEBUG bon marché :
+                print("dataIdconcours ", data_id_concours, "type ", type(data_id_concours))
+                # Message ci-après permettent de donner un sentiment rassurant aux utilisateurs.
+                flash(f"Editer le concours d'un per !!!")
+                # On affiche les concours
+                return redirect(url_for('concours_afficher'))
+
+        except (Exception,
+                pymysql.err.OperationalError,
+                pymysql.ProgrammingError,
+                pymysql.InternalError,
+                pymysql.IntegrityError,
+                TypeError) as erreur:
+
+            print(erreur.args)
+            flash(f"problème concours update{erreur.args[0]}")
+            # En cas de problème, mais surtout en cas de non respect
+            # des régles "REGEX" dans le champ "name_edit_intitule_concours_html" alors on renvoie le formulaire "EDIT"
+            return render_template('concours/concours_edit.html', data=valeur_edit_list)
+
+    return render_template("concours/concours_update.html")
+
+

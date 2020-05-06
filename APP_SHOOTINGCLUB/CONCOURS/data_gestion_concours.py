@@ -168,3 +168,65 @@ class GestionConcours():
                     print(
                         f"IMPOSSIBLE d'effacer !!! Ce concours est associé à des concours dans la t_concours_concours !!! : {erreur}")
                 raise MaBdErreurDelete(f"DGG Exception {msg_erreurs['ErreurDeleteContrainte']['message']} {erreur}")
+
+    def edit_concours_data(self, valeur_id_dictionnaire):
+        try:
+            print(valeur_id_dictionnaire)
+            # OM 2020.04.07 C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
+            # Commande MySql pour afficher le concours sélectionné dans le tableau dans le formulaire HTML
+            str_sql_id_concours = "SELECT id_concours, date_concours, fk_type_concours, fk_stand_de_tir FROM T_Concours WHERE id_concours = %(value_id_concours)s"
+
+            # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
+            # la subtilité consiste à avoir une méthode "mabd_execute" dans la classe "MaBaseDeDonnee"
+            # ainsi quand elle aura terminé l'insertion des données le destructeur de la classe "MaBaseDeDonnee"
+            # sera interprété, ainsi on fera automatiquement un commit
+            with MaBaseDeDonnee().connexion_bd as mconn_bd:
+                with mconn_bd as mc_cur:
+                    mc_cur.execute(str_sql_id_concours, valeur_id_dictionnaire)
+                    data_one = mc_cur.fetchall()
+                    print("valeur_id_dictionnaire...", data_one)
+                    return data_one
+
+        except Exception as erreur:
+            # OM 2020.03.01 Message en cas d'échec du bon déroulement des commandes ci-dessus.
+            print(f"Problème edit_concours_data Data Gestions concours numéro de l'erreur : {erreur}")
+            # flash(f"Flash. Problèmes Data Gestions concours numéro de l'erreur : {erreur}", "danger")
+            # OM 2020.04.09 On dérive "Exception" par le "@obj_mon_application.errorhandler(404)" fichier "run_mon_app.py"
+            # Ainsi on peut avoir un message d'erreur personnalisé.
+            raise Exception(
+                "Raise exception... Problème edit_concours_data d'un concours Data Gestions concours {erreur}")
+
+    def update_concours_data(self, valeur_update_dictionnaire):
+        try:
+            print(valeur_update_dictionnaire)
+            # OM 2019.04.02 Commande MySql pour la MODIFICATION de la valeur "CLAVIOTTEE" dans le champ "nameEditIntituleconcoursHTML" du form HTML "concoursEdit.html"
+            # le "%s" permet d'éviter des injections SQL "simples"
+            # <td><input type = "text" name = "nameEditIntituleconcoursHTML" value="{{ row.intitule_concours }}"/></td>
+            str_sql_update_intituleconcours = "UPDATE T_Concours SET date_concours = %(value_date_concours)s, fk_type_concours = %(value_type_concours)s, fk_stand_de_tir = %(value_stand_de_tir)s WHERE id_concours = %(value_id_concours)s"
+
+            # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
+            # la subtilité consiste à avoir une méthode "mabd_execute" dans la classe "MaBaseDeDonnee"
+            # ainsi quand elle aura terminé l'insertion des données le destructeur de la classe "MaBaseDeDonnee"
+            # sera interprété, ainsi on fera automatiquement un commit
+            with MaBaseDeDonnee().connexion_bd as mconn_bd:
+                with mconn_bd as mc_cur:
+                    mc_cur.execute(str_sql_update_intituleconcours, valeur_update_dictionnaire)
+
+        except (Exception,
+                pymysql.err.OperationalError,
+                pymysql.ProgrammingError,
+                pymysql.InternalError,
+                pymysql.IntegrityError,
+                TypeError) as erreur:
+            # OM 2020.03.01 Message en cas d'échec du bon déroulement des commandes ci-dessus.
+            print(f"Problème update_concours_data Data Gestions concours numéro de l'erreur : {erreur}")
+            # flash(f"Flash. Problèmes Data Gestions concours numéro de l'erreur : {erreur}", "danger")
+            # raise Exception('Raise exception... Problème update_concours_data d\'un concours Data Gestions concours {}'.format(str(erreur)))
+            if erreur.args[0] == 1062:
+                flash(f"Flash. Cette valeur existe déjà : {erreur}", "danger")
+                # Deux façons de communiquer une erreur causée par l'insertion d'une valeur à double.
+                flash('Doublon !!! Introduire une valeur différente')
+                # Message en cas d'échec du bon déroulement des commandes ci-dessus.
+                print(f"Problème update_concours_data Data Gestions concours numéro de l'erreur : {erreur}")
+
+                raise Exception("Raise exception... Problème update_concours_data d'un concours DataGestionsconcours {erreur}")
