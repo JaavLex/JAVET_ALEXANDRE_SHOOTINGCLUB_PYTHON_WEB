@@ -17,6 +17,9 @@
                     <th>Type</th>
                     <th>Stand de tir</th>
                     <th>Adresse</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             {% for row in data %}
@@ -27,8 +30,8 @@
                     <td>{{ row.nom_stand_de_tir|default("", True) }}</td>
                     <td>{{ row.adresse_stand_de_tir|default("", True) }}</td>
                     <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Edit</a> </td>
-                    <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Delete</a> </td>
-                    <td> <a href="{{ url_for('avertissement_sympa_pour_geeks') }}">Add</a> </td>
+                    <td> <a href="{{ url_for('concours_select_delete', id_concours_delete_html=row.id_concours) }}">Delete</a> </td>
+                    <td> <a href="{{ url_for('concours_add') }}">Add</a> </td>
                 </tr>
             {% endfor %}
         </table>

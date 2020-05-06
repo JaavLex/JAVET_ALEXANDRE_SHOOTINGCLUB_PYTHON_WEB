@@ -10,6 +10,9 @@
                     <th>Prenom</th>
                     <th>Date de naissance</th>
                     <th>Possession</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             {% for row in data %}
@@ -20,8 +23,8 @@
                     <td>{{ row.date_de_naissance }}</td>
                     <td>{{ row.possession_arme }}</td>
                     <td> <a href="{{ url_for('personne_add') }}">Add</a> </td>
-                    <td> <a href="{{ url_for('personne_edit', id_genre_edit_html=row.id_genre) }}">Edit</a> </td>
-                    <td> <a href="{{ url_for('personne_select_delete', id_genre_delete_html=row.id_genre) }}">Delete</a> </td>
+                    <td> <a href="{{ url_for('personne_edit', id_personne_edit_html=row.id_personne) }}">Edit</a> </td>
+                    <td> <a href="{{ url_for('personne_select_delete', id_personne_delete_html=row.id_personne) }}">Delete</a> </td>
                 </tr>
             {% endfor %}
         </table>

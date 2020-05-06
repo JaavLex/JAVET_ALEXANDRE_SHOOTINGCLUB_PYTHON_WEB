@@ -21,7 +21,7 @@ class GestionConcours():
         except Exception as erreur:
             flash("Dans Gestion concours ...terrible erreur, il faut connecter une base de donnée", "Danger")
             # DEBUG bon marché : Pour afficher un message dans la console.
-            print(f"Exception grave Classe constructeur GestionPersonne {erreur.args[0]}")
+            print(f"Exception grave Classe constructeur Gestionconcours {erreur.args[0]}")
             raise MaBdErreurConnexion(f"{msg_erreurs['ErreurConnexionBD']['message']} {erreur.args[0]}")
 
         print("Classe constructeur Gestionconcours ")
@@ -61,12 +61,12 @@ class GestionConcours():
 
 
     # def add_film(self, nom_film, duree_film, date_sortie_film):
-    def add_film(self, valeurs_insertion_dictionnaire):
+    def add_concours_data(self, valeurs_insertion_dictionnaire):
         try:
             # # Définitions d'un dictionnaire pour passer les valeurs en paramètres de façon un "peu" sécurisée dans la BD
             # valeurs_insertion_dictionnaire = {'value_nom_film': valeur_ins_1, 'value_duree_film': valeur_ins_2,
             #                                   'date_sortie_film': valeur_ins_3}
-            # Rssure la personne qui dévelloppe que les valeurs à insérer sont bien à disposition.concours
+            # Rssure la concours qui dévelloppe que les valeurs à insérer sont bien à disposition.concours
             print(valeurs_insertion_dictionnaire)
             str_sql_insert = "INSERT INTO T_Concours (id_concours, date_concours, fk_type_concours, fk_stand_de_tir) " \
                              "VALUES (NULL, %(value_date_concours)s, %(value_fk_type_concours)s, " \
@@ -74,7 +74,7 @@ class GestionConcours():
             with MaBaseDeDonnee() as ma_bd_curseur:
                 # OM Méthode "execute" définie simplement pour raccourcir la ligne de code
                 # ligne de code normale : ma_bd_moi.connexion_bd.cursor(str_sql_insert, valeurs_insertion_dictionnaire)
-                ma_bd_curseur.execute(str_sql_insert, valeurs_insertion_dictionnaire)
+                ma_bd_curseur.mabd_execute(str_sql_insert, valeurs_insertion_dictionnaire)
 
         except Exception as erreur:
             # OM 2020.04.09 DIFFERENTS MOYENS D'INFORMER EN CAS D'ERREURS.
@@ -92,3 +92,79 @@ class GestionConcours():
             # OM 2020.04.09 On dérive "Exception" par le "@obj_mon_application.errorhandler(404)" fichier "run_mon_app.py"
             # Ainsi on peut avoir un message d'erreur personnalisé.
             raise Exception(f"Raise exception... Data Gestions concours {erreur}")
+
+    def delete_select_concours_data(self, valeur_delete_dictionnaire):
+            try:
+                print(valeur_delete_dictionnaire)
+                # OM 2019.04.02 Commande MySql pour la MODIFICATION de la valeur "CLAVIOTTEE" dans le champ "nameEditIntituleconcoursHTML" du form HTML "concoursEdit.html"
+                # le "%s" permet d'éviter des injections SQL "simples"
+                # <td><input type = "text" name = "nameEditIntituleconcoursHTML" value="{{ row.intitule_concours }}"/></td>
+
+                # OM 2020.04.07 C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
+                # Commande MySql pour afficher le concours sélectionné dans le tableau dans le formulaire HTML
+                str_sql_select_id_concours = """SELECT id_concours, date_concours, type_concours, nom_stand_de_tir, adresse_stand_de_tir FROM T_Concours AS T1 
+            INNER JOIN T_Type_concours AS FK1 ON T1.fk_type_concours = FK1.id_type_concours 
+            INNER JOIN T_Stand_de_tir AS FK2 ON T1.fk_stand_de_tir = FK2.id_stand_de_tir
+            WHERE id_concours = %(value_id_concours)s"""
+
+                # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
+                # la subtilité consiste à avoir une gméthode "mabd_execute" dans la classe "MaBaseDeDonnee"
+                # ainsi quand elle aura terminé l'insertion des données le destructeur de la classe "MaBaseDeDonnee"
+                # sera interprété, ainsi on fera automatiquement un commit
+                with MaBaseDeDonnee().connexion_bd as mconn_bd:
+                    with mconn_bd as mc_cur:
+                        mc_cur.execute(str_sql_select_id_concours, valeur_delete_dictionnaire)
+                        data_one = mc_cur.fetchall()
+                        print("valeur_id_dictionnaire...", data_one)
+                        return data_one
+
+            except (Exception,
+                    pymysql.err.OperationalError,
+                    pymysql.ProgrammingError,
+                    pymysql.InternalError,
+                    pymysql.IntegrityError,
+                    TypeError) as erreur:
+                # DEBUG bon marché : Pour afficher un message dans la console.
+                print(f"Problème delete_select_concours_data Gestions concours numéro de l'erreur : {erreur}")
+                # C'est une erreur à signaler à l'utilisateur de cette application WEB.
+                flash(f"Flash. Problème delete_select_concours_data numéro de l'erreur : {erreur}", "danger")
+                raise Exception(
+                    "Raise exception... Problème delete_select_concours_data d\'un concours Data Gestions concours {erreur}")
+
+    def delete_concours_data(self, valeur_delete_dictionnaire):
+            try:
+                print(valeur_delete_dictionnaire)
+                # OM 2019.04.02 Commande MySql pour EFFACER la valeur sélectionnée par le "bouton" du form HTML "concoursEdit.html"
+                # le "%s" permet d'éviter des injections SQL "simples"
+                # <td><input type = "text" name = "nameEditIntituleconcoursHTML" value="{{ row.intitule_concours }}"/></td>
+                str_sql_delete_intituleconcours = "DELETE FROM T_Concours WHERE id_concours = %(value_id_concours)s"
+
+                # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
+                # la subtilité consiste à avoir une méthode "mabd_execute" dans la classe "MaBaseDeDonnee"
+                # ainsi quand elle aura terminé l'insertion des données le destructeur de la classe "MaBaseDeDonnee"
+                # sera interprété, ainsi on fera automatiquement un commit
+                with MaBaseDeDonnee().connexion_bd as mconn_bd:
+                    with mconn_bd as mc_cur:
+                        mc_cur.execute(str_sql_delete_intituleconcours, valeur_delete_dictionnaire)
+                        data_one = mc_cur.fetchall()
+                        print("valeur_id_dictionnaire...", data_one)
+                        return data_one
+            except (Exception,
+                    pymysql.err.OperationalError,
+                    pymysql.ProgrammingError,
+                    pymysql.InternalError,
+                    pymysql.IntegrityError,
+                    TypeError) as erreur:
+                # DEBUG bon marché : Pour afficher un message dans la console.
+                print(f"Problème delete_concours_data Data Gestions concours numéro de l'erreur : {erreur}")
+                # flash(f"Flash. Problèmes Data Gestions concours numéro de l'erreur : {erreur}", "danger")
+                if erreur.args[0] == 1451:
+                    # OM 2020.04.09 Traitement spécifique de l'erreur 1451 Cannot delete or update a parent row: a foreign key constraint fails
+                    # en MySql le moteur INNODB empêche d'effacer un concours qui est associé à un film dans la table intermédiaire "t_concours_concours"
+                    # il y a une contrainte sur les FK de la table intermédiaire "t_concours_concours"
+                    # C'est une erreur à signaler à l'utilisateur de cette application WEB.
+                    # flash(f"Flash. IMPOSSIBLE d'effacer !!! Ce concours est associé à des concours dans la t_concours_concours !!! : {erreur}", "danger")
+                    # DEBUG bon marché : Pour afficher un message dans la console.
+                    print(
+                        f"IMPOSSIBLE d'effacer !!! Ce concours est associé à des concours dans la t_concours_concours !!! : {erreur}")
+                raise MaBdErreurDelete(f"DGG Exception {msg_erreurs['ErreurDeleteContrainte']['message']} {erreur}")

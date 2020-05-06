@@ -59,16 +59,16 @@ def personne_add():
             # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
             obj_actions_personne = GestionPersonne()
             # OM 2020.04.09 Récupère le contenu du champ dans le formulaire HTML "personne_add.html"
-            nom_pers = request.form['nom_personne_html']
-            prenom_pers = request.form['prenom_personne_html']
-            date_de_naissance = request.form['date_de_naissance_html']
-            possession_arme = request.form['possession_html']
+            nom_pers_add = request.form['nom_pers_html']
+            prenom_pers_add = request.form['prenom_pers_html']
+            date_de_naissance_add = request.form['date_de_naissance_html']
+            possession_arme_add = request.form['possession_html']
 
             # OM 2019.04.04 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
             # des valeurs avec des caractères qui ne sont pas des lettres.
             # Accepte le trait d'union ou l'apostrophe, et l'espace entre deux mots, mais pas plus d'une occurence.
             if not re.match("^([A-Z]|[a-z\u00C0-\u00FF])[A-Za-z\u00C0-\u00FF]*['\\- ]?[A-Za-z\u00C0-\u00FF]+$",
-                                nom_pers):
+                                nom_pers_add):
                 # OM 2019.03.28 Message humiliant à l'attention de l'utilisateur.
                 flash(f"Une entrée...incorrecte !! Pas de chiffres, de caractères spéciaux, d'espace à double, "
                       f"de double apostrophe, de double trait union et ne doit pas être vide.", "Danger")
@@ -77,7 +77,7 @@ def personne_add():
             else:
 
                 # Constitution d'un dictionnaire et insertion dans la BD
-                valeurs_insertion_dictionnaire = {"value_nom_pers": nom_pers, "value_prenom_pers": prenom_pers, "value_date_de_naissance": date_de_naissance, "value_possession": possession_arme}
+                valeurs_insertion_dictionnaire = {"value_nom_pers": nom_pers_add, "value_prenom_pers": prenom_pers_add, "value_date_de_naissance": date_de_naissance_add, "value_possession": possession_arme_add}
                 obj_actions_personne.add_personne_data(valeurs_insertion_dictionnaire)
 
                 # OM 2019.03.25 Les 2 lignes ci-après permettent de donner un sentiment rassurant aux utilisateurs.
@@ -183,17 +183,21 @@ def personne_update():
             # grâce à la variable "id_personne_edit_html"
             # <a href="{{ url_for('personne_edit', id_personne_edit_html=row.id_personne) }}">Edit</a>
             id_personne_edit = request.values['id_personne_edit_html']
+            nom_pers_edit = request.values['nom_pers_html']
+            prenom_pers_edit = request.values['prenom_pers_html']
+            date_de_naissance_edit = request.values['date_de_naissance_html']
+            possession_arme_edit = request.values['possession_arme_html']
 
             # Récupère le contenu du champ "intitule_personne" dans le formulaire HTML "personneEdit.html"
-            name_personne = request.values['name_edit_intitule_personne_html']
-            valeur_edit_list = [{'id_personne': id_personne_edit, 'intitule_personne': name_personne}]
+
+            valeur_edit_list = [{'id_personne': id_personne_edit, 'nom_pers': nom_pers_edit, 'prenom_pers': prenom_pers_edit, 'date_de_naissance': date_de_naissance_edit, 'possession_arme': possession_arme_edit}]
             # On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
             # des valeurs avec des caractères qui ne sont pas des lettres.
             # Accepte le trait d'union ou l'apostrophe, et l'espace entre deux mots, mais pas plus d'une occurence.
-            if not re.match("^([A-Z]|[a-z\u00C0-\u00FF])[A-Za-z\u00C0-\u00FF]*['\\- ]?[A-Za-z\u00C0-\u00FF]+$", name_personne):
+            if not re.match("^([A-Z]|[a-z\u00C0-\u00FF])[A-Za-z\u00C0-\u00FF]*['\\- ]?[A-Za-z\u00C0-\u00FF]+$", nom_pers_edit):
                 # En cas d'erreur, conserve la saisie fausse, afin que l'utilisateur constate sa misérable faute
                 # Récupère le contenu du champ "intitule_personne" dans le formulaire HTML "personneEdit.html"
-                #name_personne = request.values['name_edit_intitule_personne_html']
+                #nom_pers = request.values['name_edit_intitule_personne_html']
                 # Message humiliant à l'attention de l'utilisateur.
                 flash(f"Une entrée...incorrecte !! Pas de chiffres, de caractères spéciaux, d'espace à double, "
                       f"de double apostrophe, de double trait union et ne doit pas être vide.", "Danger")
@@ -202,7 +206,7 @@ def personne_update():
                 # Constitution d'une liste pour que le formulaire d'édition "personne_edit.html" affiche à nouveau
                 # la possibilité de modifier l'entrée
                 # Exemple d'une liste : [{'id_personne': 13, 'intitule_personne': 'philosophique'}]
-                valeur_edit_list = [{'id_personne': id_personne_edit, 'intitule_personne': name_personne}]
+                valeur_edit_list = [{'id_personne': id_personne_edit, 'nom_pers': nom_pers_edit, 'prenom_pers': prenom_pers_edit, 'date_de_naissance': date_de_naissance_edit, 'possession_arme': possession_arme_edit}]
 
                 # DEBUG bon marché :
                 # Pour afficher le contenu et le type de valeurs passées au formulaire "personne_edit.html"
@@ -210,7 +214,7 @@ def personne_update():
                 return render_template('personne/personne_edit.html', data=valeur_edit_list)
             else:
                 # Constitution d'un dictionnaire et insertion dans la BD
-                valeur_update_dictionnaire = {"value_id_personne": id_personne_edit, "value_name_personne": name_personne}
+                valeur_update_dictionnaire = {"value_id_personne": id_personne_edit, "value_nom_pers": nom_pers_edit, "value_prenom_pers": prenom_pers_edit, "value_date_de_naissance": date_de_naissance_edit, "value_possession": possession_arme_edit}
 
                 # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
                 obj_actions_personne = GestionPersonne()
