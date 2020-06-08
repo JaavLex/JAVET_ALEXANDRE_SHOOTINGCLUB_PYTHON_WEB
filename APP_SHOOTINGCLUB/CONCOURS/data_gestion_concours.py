@@ -26,20 +26,40 @@ class GestionConcours():
 
         print("Classe constructeur Gestionconcours ")
 
-
-    def concours_afficher_data(self):
+    def concours_afficher_data(self, valeur_order_by, id_concours_sel):
         try:
-            # OM 2020.04.07 C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
-            # la commande MySql classique est "SELECT * FROM t_concours"
-            # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
-            # donc, je précise les champs à afficher
-            strsql_concours_afficher = """SELECT id_concours, date_concours, type_concours, nom_stand_de_tir, adresse_stand_de_tir FROM T_Concours AS T1 
-            INNER JOIN T_Type_concours AS FK1 ON T1.fk_type_concours = FK1.id_type_concours 
-            INNER JOIN T_Stand_de_tir AS FK2 ON T1.fk_stand_de_tir = FK2.id_stand_de_tir"""
+            print("valeur_order_by ", valeur_order_by, type(valeur_order_by))
+
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
             with MaBaseDeDonnee().connexion_bd.cursor() as mc_afficher:
-                # Envoi de la commande MySql
-                mc_afficher.execute(strsql_concours_afficher)
+                # Afficher soit la liste des concours dans l'ordre inverse ou simplement le concours sélectionné
+                # par l'action edit
+                if valeur_order_by == "ASC" and id_concours_sel == 0:
+                    strsql_concours_afficher = """SELECT id_concours, date_concours, type_concours, nom_stand_de_tir, adresse_stand_de_tir FROM T_Concours AS T1
+            INNER JOIN T_Type_concours AS FK1 ON T1.fk_type_concours = FK1.id_type_concours
+            INNER JOIN T_Stand_de_tir AS FK2 ON T1.fk_stand_de_tir = FK2.id_stand_de_tir
+            ORDER BY id_concours ASC"""
+                    mc_afficher.execute(strsql_concours_afficher)
+                elif valeur_order_by == "ASC":
+                    # OM 2020.04.07 C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
+                    # la commande MySql classique est "SELECT * FROM t_concours"
+                    # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
+                    # donc, je précise les champs à afficher
+                    # Constitution d'un dictionnaire pour associer l'id du concours sélectionné avec un nom de variable
+                    valeur_id_concours_selected_dictionnaire = {"value_id_concours_selected": id_concours_sel}
+                    strsql_concours_afficher = """SELECT id_concours, date_concours, type_concours, nom_stand_de_tir, adresse_stand_de_tir FROM T_Concours AS T1
+            INNER JOIN T_Type_concours AS FK1 ON T1.fk_type_concours = FK1.id_type_concours
+            INNER JOIN T_Stand_de_tir AS FK2 ON T1.fk_stand_de_tir = FK2.id_stand_de_tir
+            WHERE id_concours = %(valeur_id_concours_selected)s"""
+                    # Envoi de la commande MySql
+                    mc_afficher.execute(strsql_concours_afficher, valeur_id_concours_selected_dictionnaire)
+                else:
+                    strsql_concours_afficher = """SELECT id_concours, date_concours, type_concours, nom_stand_de_tir, adresse_stand_de_tir FROM T_Concours AS T1
+            INNER JOIN T_Type_concours AS FK1 ON T1.fk_type_concours = FK1.id_type_concours
+            INNER JOIN T_Stand_de_tir AS FK2 ON T1.fk_stand_de_tir = FK2.id_stand_de_tir
+            ORDER BY id_concours DESC"""
+                    # Envoi de la commande MySql
+                    mc_afficher.execute(strsql_concours_afficher)
                 # Récupère les données de la requête.
                 data_concours = mc_afficher.fetchall()
                 # Affichage dans la console
@@ -47,18 +67,16 @@ class GestionConcours():
                 # Retourne les données du "SELECT"
                 return data_concours
         except pymysql.Error as erreur:
-            print(f"DGF gad pymysql errror {erreur.args[0]} {erreur.args[1]}")
-            raise  MaBdErreurPyMySl(f"DGG fad pymysql errror {msg_erreurs['ErreurPyMySql']['message']} {erreur.args[0]} {erreur.args[1]}")
+            print(f"DGG gad pymysql errror {erreur.args[0]} {erreur.args[1]}")
+            raise MaBdErreurPyMySl(
+                f"DGG gad pymysql errror {msg_erreurs['ErreurPyMySql']['message']} {erreur.args[0]} {erreur.args[1]}")
         except Exception as erreur:
-            print(f"DGF gad Exception {erreur.args}")
-            raise MaBdErreurConnexion(f"DGG fad Exception {msg_erreurs['ErreurConnexionBD']['message']} {erreur.args}")
+            print(f"DGG gad Exception {erreur.args}")
+            raise MaBdErreurConnexion(f"DGG gad Exception {msg_erreurs['ErreurConnexionBD']['message']} {erreur.args}")
         except pymysql.err.IntegrityError as erreur:
-            # OM 2020.04.09 On dérive "pymysql.err.IntegrityError" dans "MaBdErreurDoublon" fichier "erreurs.py"
+            # OM 2020.04.09 On dérive "pymysql.err.IntegrityError" dans le fichier "erreurs.py"
             # Ainsi on peut avoir un message d'erreur personnalisé.
-            # raise MaBdErreurDoublon(f"{msg_erreurs['ErreurDoublonValue']['message']} et son status {msg_erreurs['ErreurDoublonValue']['status']}")
-            raise MaBdErreurConnexion(f"DGF fad pei {msg_erreurs['ErreurConnexionBD']['message']} {erreur.args[1]}")
-
-
+            raise MaBdErreurConnexion(f"DGG gad pei {msg_erreurs['ErreurConnexionBD']['message']} {erreur.args[1]}")
 
     # def add_film(self, nom_film, duree_film, date_sortie_film):
     def add_concours_data(self, valeurs_insertion_dictionnaire):

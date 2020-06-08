@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block title %} Afficher personne concours {% endblock %}
+{% block head %}
+    <!--
+        OM 2020.05.04
+        On utilise le composant "tags-selector-tagselect" juste dans cette page,
+         il n'est pas nécessaire de la charger pour chaque page
+        c'est pourquoi il ne se trouve pas dans "base.html" mais ici
+        entre les balises JINJA "block head" "endblock"
+        -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='tags-selector-tagselect/jquery.tagselect.css') }}">
+    <script src="{{ url_for('static', filename='tags-selector-tagselect/jquery.tagselect.js') }}"></script>
+{% endblock %}
+{% block body %}
+
+
+<!--
+    OM 2020.05.04
+    Il faut éviter de placer des instructions css n'importe où et surtout en plein milieu de nulle part,
+    pour dépanner l'application ce n'est vraiment pas top...
+    Mais Flask ne reconnaît pas les instructions ci-dessous lorsqu'elles sont dans un fichier externe
+-->
+
+    <style>
+        ol, ul, li {
+            list-style: none;
+        }
+    </style>
+
+
+<div class="container">
+		<div class="col-md-12">
+			<p>
+				Tagselect, c'est une DROPBOX qui surgit quand on sélectionne l'espace "TAGS". Le composant TAGSELECT est à disposition sur ce site :
+                 <a href="https://www.jqueryscript.net/form/tags-selector-tagselect.html"
+                    target="_blank">https://www.jqueryscript.net/form/tags-selector-tagselect.html</a>
+				personnes.
+			</p>
+            <table class="table table-responsive-sm">
+                {% if data_personne_selected %}
+                    <thead>
+                        <tr>
+                            <th class="">
+                                id
+                            </th>
+                            <th class="">
+                                Nom
+                            </th>
+                            <th class="">
+                                Prénom
+                            </th>
+                            <th class="">
+                                Possession
+                            </th>
+                        </tr>
+                    </thead>
+            {% endif %}
+
+            {% for row in data_personne_selected %}
+				<tbody>
+					<tr>
+						<td class="align-middle">
+							{{ row.id_personne }}
+						</td>
+						<td class="align-middle">
+							{{ row.nom_pers }}
+						</td>
+						<td class="align-middle">
+							{{ row.prenom_pers }}
+						</td>
+						<td class="align-middle">
+							{{ row.possession_arme }}
+						</td>
+					</tr>
+				</tbody>
+            {% else %}
+				<tbody>
+					<tr>
+						<td>
+							Aucun personne.
+						</td>
+						<td>
+							<a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Add</a>
+						</td>
+					</tr>
+				</tbody>
+            {% endfor %}
+			</table>
+		</div>
+	</div>
+
+<div class="container">
+    <div class="row mx-md-n5">
+      <div class="col px-md-5">
+          <div class="p-3">
+            <form id="form_tags_select_confirm" action="{{ url_for('gf_update_concours_personne_selected') }}" method="POST">
+                <div class="qtagselect isw360">
+                    <select id="OM_JTSD" name="name_select_tags" class="qtagselect__select" multiple>
+                        {% for row in data_concours_non_attribues %}
+                            <option value="{{ row.id_concours }}" name="name_tags_non_attribues_html" class="isblue" >{{ row.date_concours }}</option>
+                        {% endfor %}
+
+                        {% for row in data_concours_attribues %}
+                            <option value="{{ row.id_concours }}" name="name_tags_attribues_html" class="ispurple" selected>{{ row.date_concours }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+            </form>
+          </div>
+      </div>
+      <div class="col px-md-5">
+          <div class="p-3">
+            <input type="submit" form="form_tags_select_confirm" class="btn btn-warning" value="Modifier">
+          </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    $('.qtagselect__select').tagselect({
+    // Paramètres du composant : https://www.jqueryscript.net/form/tags-selector-tagselect.html
+    // maximum number of tags allowed to select
+      'maxTag': 100,
+    // error message,
+      'tagMessage': '100 tags au max !'
+    });
+</script>
+{% endblock %}

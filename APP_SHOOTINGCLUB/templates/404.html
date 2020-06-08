@@ -1,11 +1,21 @@
 {% extends "base.html" %}
 {% block title %} Homepage erreur 404 {% endblock %}
 {% block body %}
-  <h1>Home page</h1>
-<p>grosse erreur 404...!!!!??</p>
-<p>404 Not Found
-Le serveur n'a pas trouvé la ressource demandée. Ce code de réponse est principalement connu pour son apparition fréquente sur le web.</p>
-Pour encore plus de codes d'erreurs...
-<a href="https://developer.mozilla.org/fr/docs/Web/HTTP/Status" target="_blank">https://developer.mozilla.org/fr/docs/Web/HTTP/Status</a></a>
-<br><br>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>
+				 erreur 404
+			</h3>
+			<main class="site-content">
+				<p>
+					404 Not Found<br>
+					Le serveur n'a pas trouvé la ressource demandée. Ce code de réponse est principalement connu pour son apparition fréquente sur le web.<br>
+					Pour encore plus de codes d'erreurs...<br>
+					<a href="https://developer.mozilla.org/fr/docs/Web/HTTP/Status" target="_blank">https://developer.mozilla.org/fr/docs/Web/HTTP/Status</a>
+				</p>
+			</main>
+		</div>
+	</div>
+</div>
 {% endblock %}

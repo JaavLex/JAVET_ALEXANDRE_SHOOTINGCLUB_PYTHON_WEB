@@ -17,7 +17,7 @@ def home_dans_routes_pour_exemple_hommage_m_el_vyn_mal_herbe():
     return render_template("home.html")
 
 # OM 2020.04.09 Pour une démonstration du traitement d'erreurs avec "raise"
-# Pour tester cette fonction: http://127.0.0.1:1234/taillepersonne
+# Pour tester cette fonction: http://127.0.0.1:5005/taillepersonne
 @obj_mon_application.route('/taillepersonne')
 def personnes_taille_dict():
     # DEBUG bon marché : Pour afficher dans la console les valeurs des erreurs "customisées"
@@ -31,7 +31,7 @@ def personnes_taille_dict():
     # Afficher les valeurs
     print(msg_erreurs.values())
 
-    # Affiche la valeur "message" du dictionnaires d'erreur "DATABASE/erreurs.py"
+    # Affiche la valeur "message" du dictionnaire d'erreur "DATABASE/erreurs.py"
     print("val dans le dict ", msg_erreurs['ErreurDictionnaire'])
 
     # Défini un petit dictionnaire
@@ -41,11 +41,11 @@ def personnes_taille_dict():
     # le traitement de l'erreur.
     # Si la chaîne de caractère ne se trouve pas dans le dictionnaire ci-dessus il va y avoir une erreur "KeyError"
     # On la capture et on renvoie un texte "personnel" (custom error handler) à l'utilisateur.
-    nom_personne = "OM"
+    # nom_personne = "OM"
     # nom_personne = "Gégé"
     # nom_personne = "Hugo"
 
-    # nom_personne = "Pignon"
+    nom_personne = "Pignon"
 
     try:
         # Tout se passe normalement
@@ -73,6 +73,6 @@ def personnes_taille_dict():
         # Il renvoie un texte avec la valeur de "nom_personne" ainsi qu'un message personnalisé
         # grâce à la classe "MonErreur(Exception)" dans le fichier "erreurs.py"
         raise MonErreur(f"{msg_erreurs['ErreurDictionnaire']['message']} "
-                        f"Le nom : {nom_personne} n'est pas une valeur contenue dans le dictionnaire")
+                        f"Le nom : {nom_personne} n'est pas une valeur contenue dans le dictionnaire, pour comprendre, il faut modifier la valeur à la ligne 48 du fichier 'routes.py'")
 
     return render_template("zzz_essais_om_104/exception_raise_custom_om_104.html")

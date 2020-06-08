@@ -1,13 +1,19 @@
 {% extends "base.html" %}
 {% block title %} Homepage erreur 500 {% endblock %}
 {% block body %}
-  <h1>Home page</h1>
-  <p>grosse 500...!!!!??</p>
-  <br>
-  Des détails techniques sur cette erreur 500
-  <a href="https://developer.mozilla.org/fr/docs/Web/HTTP/Status/500" target="_blank">https://developer.mozilla.org/fr/docs/Web/HTTP/Status/500</a></a>
-  <br><br>
-  Pour d'autres renseignements sur les erreurs http
-  <a href="https://developer.mozilla.org/fr/docs/Web/HTTP/Status" target="_blank"></a>
-  <br><br>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>
+				 erreur 500
+			</h3>
+			<p>
+              Des détails techniques sur cette erreur 500
+              <a href="https://developer.mozilla.org/fr/docs/Web/HTTP/Status/500" target="_blank">https://developer.mozilla.org/fr/docs/Web/HTTP/Status/500</a></a><br>
+              Pour d'autres renseignements sur les erreurs http
+              <a href="https://developer.mozilla.org/fr/docs/Web/HTTP/Status" target="_blank"></a>
+			</p>
+		</div>
+	</div>
+</div>
 {% endblock %}

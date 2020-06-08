@@ -1,9 +1,20 @@
 {% extends "base.html" %}
 {% block title %} Keyerror {% endblock %}
 {% block body %}
-  <h1>Key error</h1>
-  <p>Un élément ne se trouve pas dans le dictionnaire</p>
-  <p>ATTENTION il faut changer la valeur de la variable "nom_personne" dans le code Python</p>
-  <p>dans le fichier "routes.py" dans la fonction "personnes_taille_dict()"</p>
-  <br><br>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>
+				 Key error
+			</h3>
+			<main class="site-content">
+				<p>
+					Un élément ne se trouve pas dans le dictionnaire<br>
+                    <p>ATTENTION il faut changer la valeur de la variable "nom_personne" dans le code Python</p>
+                    <p>dans le fichier "routes.py" dans la fonction "personnes_taille_dict()"</p>
+				</p>
+			</main>
+		</div>
+	</div>
+</div>
 {% endblock %}

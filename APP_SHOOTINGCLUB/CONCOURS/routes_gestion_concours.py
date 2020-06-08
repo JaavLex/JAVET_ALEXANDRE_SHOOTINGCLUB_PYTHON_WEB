@@ -18,33 +18,73 @@ def avertissement_sympa_pour_geeks():
 
 
 
-# OM 2020.04.16 Afficher les concours
-# Pour la tester http://127.0.0.1:1234/concours_afficher
-@obj_mon_application.route("/concours_afficher")
-def concours_afficher():
+# # OM 2020.04.16 Afficher les concours
+# # Pour la tester http://127.0.0.1:1234/concours_afficher
+# @obj_mon_application.route("/concours_afficher")
+# def concours_afficher():
+#     # OM 2020.04.09 Pour savoir si les données d'un formulaire sont un affichage
+#     # ou un envoi de donnée par des champs du formulaire HTML.
+#     if request.method == "GET":
+#         try:
+#             # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
+#             obj_actions_concours = GestionConcours()
+#             # Récupére les données grâce à une requête MySql définie dans la classe GestionConcours()
+#             # Fichier data_gestion_concours.py
+#             data_concours = obj_actions_concours.concours_afficher_data()
+#             # DEBUG bon marché : Pour afficher un message dans la console.
+#             print(" data concours", data_concours, "type ", type(data_concours))
+#
+#             # OM 2020.04.09 La ligns ci-après permet de donner un sentiment rassurant aux utilisateurs.
+#             flash("Données concours affichées !!", "Success")
+#         except Exception as erreur:
+#             print(f"RGF Erreur générale.")
+#             # OM 2020.04.09 On dérive "Exception" par le "@obj_mon_application.errorhandler(404)" fichier "run_mon_app.py"
+#             # Ainsi on peut avoir un message d'erreur personnalisé.
+#             # flash(f"RGG Exception {erreur}")
+#             raise Exception(f"RGF Erreur générale. {erreur}")
+#
+#     # OM 2020.04.07 Envoie la page "HTML" au serveur.
+#     return render_template("concours/concours_afficher.html", data=data_concours)
+
+
+@obj_mon_application.route("/concours_afficher/<string:order_by>/<int:id_concours_sel>", methods=['GET', 'POST'])
+def concours_afficher(order_by,id_concours_sel):
     # OM 2020.04.09 Pour savoir si les données d'un formulaire sont un affichage
     # ou un envoi de donnée par des champs du formulaire HTML.
     if request.method == "GET":
         try:
             # OM 2020.04.09 Objet contenant toutes les méthodes pour gérer (CRUD) les données.
             obj_actions_concours = GestionConcours()
-            # Récupére les données grâce à une requête MySql définie dans la classe GestionConcours()
+            # Récupère les données grâce à une requête MySql définie dans la classe Gestionconcours()
             # Fichier data_gestion_concours.py
-            data_concours = obj_actions_concours.concours_afficher_data()
+            # "order_by" permet de choisir l'ordre d'affichage des concours.
+            data_concours = obj_actions_concours.concours_afficher_data(order_by,id_concours_sel)
             # DEBUG bon marché : Pour afficher un message dans la console.
             print(" data concours", data_concours, "type ", type(data_concours))
 
-            # OM 2020.04.09 La ligns ci-après permet de donner un sentiment rassurant aux utilisateurs.
-            flash("Données concours affichées !!", "Success")
+            # Différencier les messages si la table est vide.
+            if not data_concours and id_concours_sel == 0:
+                flash("""La table "t_concours" est vide. !!""", "warning")
+            elif not data_concours and id_concours_sel > 0:
+                # Si l'utilisateur change l'id_concours dans l'URL et que le concours n'existe pas,
+                flash(f"Le concours demandé n'existe pas !!", "warning")
+            else:
+                # Dans tous les autres cas, c'est que la table "t_concours" est vide.
+                # OM 2020.04.09 La ligne ci-dessous permet de donner un sentiment rassurant aux utilisateurs.
+                flash(f"Données concours affichés !!", "success")
+
+
         except Exception as erreur:
-            print(f"RGF Erreur générale.")
+            print(f"RGG Erreur générale.")
             # OM 2020.04.09 On dérive "Exception" par le "@obj_mon_application.errorhandler(404)" fichier "run_mon_app.py"
             # Ainsi on peut avoir un message d'erreur personnalisé.
             # flash(f"RGG Exception {erreur}")
-            raise Exception(f"RGF Erreur générale. {erreur}")
+            raise Exception(f"RGG Erreur générale. {erreur}")
+            # raise MaBdErreurOperation(f"RGG Exception {msg_erreurs['ErreurNomBD']['message']} {erreur}")
 
     # OM 2020.04.07 Envoie la page "HTML" au serveur.
     return render_template("concours/concours_afficher.html", data=data_concours)
+
 
 
 # OM 2020.04.06 Pour une simple démo. On insère deux fois des valeurs dans la table concours

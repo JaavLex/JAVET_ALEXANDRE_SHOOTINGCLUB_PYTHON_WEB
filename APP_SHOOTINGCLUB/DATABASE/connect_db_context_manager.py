@@ -27,7 +27,7 @@ class MaBaseDeDonnee():
         self.connexion_bd = None
         try:
             # OM 2019.04.05 ON SE CONNECTE A LA BASE DE DONNEE
-            # ATTENTION : LE MOT DE PASSE PEUT CHANGER SUIVANT LE SERVEUR MySql QUE VOUS CHOISSISSEZ !!! (Uwamp, Xampp, etc)
+            # ATTENTION : LE MOT DE PASSE PEUT CHANGER SUIVANT LE SERVEUR MySql QUE VOUS CHOISISSEZ !!! (Uwamp, Xampp, etc)
             # autocommit doit être à False, sa valeur est testée lors de la sortie de cette classe.
             self.connexion_bd = pymysql.connect(host=self.host,
                                                 port=self.port,
@@ -36,7 +36,7 @@ class MaBaseDeDonnee():
                                                 db=self.db,
                                                 cursorclass=pymysql.cursors.DictCursor,
                                                 autocommit=False)
-            print("Avec CM BD  CONNECTEE, TOUT va BIEN !! Dans le constructeur")
+            print("Avec CM BD  CONNECTÉE, TOUT va BIEN !! Dans le constructeur")
             print("self.con....", dir(self.connexion_bd), "type of self.con : ", type(self.connexion_bd))
 
         # OM 2020.03.11 Il y a un problème avec la BD (non connectée, nom erronné, etc)
@@ -45,9 +45,9 @@ class MaBaseDeDonnee():
                 ConnectionRefusedError,
                 pymysql.err.OperationalError,
                 pymysql.err.DatabaseError) as erreur:
-            # OM 2019.03.09 SI LA BD N'EST PAS CONNECTEE, ON ENVOIE AU TERMINAL DES MESSAGES POUR RASSURER L'UTILISATEUR.
+            # OM 2019.03.09 SI LA BD N'EST PAS CONNECTÉE, ON ENVOIE AU TERMINAL DES MESSAGES POUR RASSURER L'UTILISATEUR.
             # Petits messages "flash", échange entre Python et Jinja dans une page en HTML
-            flash(f"Flash....BD NON CONNECTEE. Erreur : {erreur.args[1]}", "danger")
+            flash(f"Flash....BD NON CONNECTÉE. Erreur : {erreur.args[1]}", "danger")
             # raise, permet de "lever" une exception et de personnaliser la page d'erreur
             # voir fichier "run_mon_app.py"
             # Celle-ci est assez complète... mais il y a toujours mieux
@@ -62,8 +62,8 @@ class MaBaseDeDonnee():
 
 
     # Méthode de sortie de la classe, c'est là que se trouve tout ce qui doit être fermé
-    # Si un problème (une Exception est levéee avant (__init__ ou __enter__) cette méthode
-    # n'est pas interpretée
+    # Si un problème (une Exception est levée avant (__init__ ou __enter__) cette méthode
+    # n'est pas interprétée
     def __exit__(self, exc_type, exc_val, traceback):
         # La valeur des paramètres est "None" si tout s'est bien déroulé.
         print("exc_val ", exc_val)
@@ -82,12 +82,12 @@ class MaBaseDeDonnee():
 
         # Fermeture de la connexion à la base de donnée.
         self.connexion_bd.close()
-        print("La BD est FERMEE !! Dans le destructeur")
+        print("La BD est FERMÉE !! Dans le destructeur")
 
     # OM 2020.04.10 Cette méthode est définie pour utiliser les "context manager"
     # Une fois l'interprétation de cette méthode terminée
     # le destructeur "__exit__" sera automatiquement interprété.
-    # ainsi après avoir éxécuté la requête MySql on va faire un commit (enregistrer les modifications)
+    # ainsi après avoir exécuté la requête MySql on va faire un commit (enregistrer les modifications)
     # s'il n'y a pas erreur ou un rollback (retour en arrière) en cas d'erreur
     # et finalement fermer la connexion à la BD.
     def mabd_execute(self, sql, params=None):
