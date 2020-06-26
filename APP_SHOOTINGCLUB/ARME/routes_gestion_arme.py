@@ -3,7 +3,7 @@
 
 from flask import render_template, flash, redirect, url_for, request
 from APP_SHOOTINGCLUB import obj_mon_application
-from APP_SHOOTINGCLUB.arme.data_gestion_arme import Gestionarme
+from APP_SHOOTINGCLUB.ARME.data_gestion_arme import Gestionarme
 from APP_SHOOTINGCLUB.DATABASE.erreurs import *
 # OM 2020.04.10 Pour utiliser les expressions régulières REGEX
 import re
