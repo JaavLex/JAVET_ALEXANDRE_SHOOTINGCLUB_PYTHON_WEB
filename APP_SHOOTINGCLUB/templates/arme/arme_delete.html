@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}DELETE personne{% endblock %}
+{% block title %}DELETE Arme{% endblock %}
 {% block body %}
     <div class="home">
         <BODY bgcolor="yellow">
@@ -11,21 +11,18 @@
                 <table border="1" cellpadding="5" cellspacing="5">
                     <thead>
                         <tr>
-                            <th>ID Personne</th>
                             <th>Nom</th>
-                            <th>Prenom</th>
-                            <th>Date de naissance</th>
-                            <th>Possession arme</th>
+                            <th>Munition</th>
+                            <th>Type arme</th>
                             <th></th>
                         </tr>
                     </thead>
                     {% for row in data %}
                         <tr>
                             <td><input type="hidden" name="id_personne_delete_html" value="{{ row.id_personne }}"></td>
-                            <td>{{ row.nom_pers }}</td>
-                            <td>{{ row.prenom_pers }}</td>
-                            <td>{{ row.date_de_naissance }}</td>
-                            <td>{{ row.possession_arme }}</td>
+                            <td>{{ row.nom_arme }}</td>
+                            <td>{{ row.fk_munition }}</td>
+                            <td>{{ row.fk_type_arme }}</td>
                             <td><button class="btn btn-danger" type="submit">EFFACER</button></td>
                         </tr>
                     {% endfor %}
