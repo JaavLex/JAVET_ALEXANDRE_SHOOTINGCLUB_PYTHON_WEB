@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %} Ajouter une personne{% endblock %}
+{% block body %}
+    <div class="home">
+        <BODY bgcolor="brown">
+        <form method="POST" action="">
+            <div>
+                {% if error %}
+                    <p class=error><strong>Error:</strong> {{ error }}
+                {% endif %}
+            </div>
+            <center>
+                <H1>Clavioter une nouvelle personne</H1> <br>
+                Nom <input type = "text" name= "nom_pers_html" /> <br>
+                Prenom <input type = "text" name= "prenom_pers_html" /> <br>
+                Date de naissance <input type = "date" name= "date_de_naissance_html" /> <br>
+                Possession Arme <input type = "number" name= "possession_html" /> <br>
+                <input type = "submit" value="Enregistrer la personne">
+            </center>
+        </form>
+        </BODY>
+    </div>
+{% endblock %}
