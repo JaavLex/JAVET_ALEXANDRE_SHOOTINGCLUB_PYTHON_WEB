@@ -176,7 +176,7 @@ ORDER BY id_arme ASC"""
             # OM 2019.04.02 Commande MySql pour EFFACER la valeur sélectionnée par le "bouton" du form HTML "armeEdit.html"
             # le "%s" permet d'éviter des injections SQL "simples"
             # <td><input type = "text" name = "nameEditIntitulearmeHTML" value="{{ row.intitule_arme }}"/></td>
-            str_sql_delete_intitulearme = "DELETE FROM T_arme WHERE id_arme = %(value_id_arme)s"
+            str_sql_delete_intitulearme = "DELETE FROM T_Armes WHERE id_arme = %(value_id_arme)s"
 
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
             # la subtilité consiste à avoir une méthode "mabd_execute" dans la classe "MaBaseDeDonnee"
