@@ -18,3 +18,4 @@ from APP_SHOOTINGCLUB import routes
 from APP_SHOOTINGCLUB.CONCOURS import routes_gestion_concours
 from APP_SHOOTINGCLUB.PERSONNE import routes_gestion_personne
 from APP_SHOOTINGCLUB.PERSONNE_CONCOURS import routes_gestion_genres_films
+from APP_SHOOTINGCLUB.ARME import routes_gestion_arme
