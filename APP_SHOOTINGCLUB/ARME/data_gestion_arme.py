@@ -29,9 +29,9 @@ class Gestionarme():
             # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
             # donc, je précise les champs à afficher
             strsql_arme_afficher = """SELECT id_arme, nom_arme, calibre, type_arme FROM T_Armes AS T1
-INNER JOIN T_Munition AS FK1 ON T1.fk_munition = FK1.id_munition
-INNER JOIN T_Type_arme AS FK2 ON T1.fk_type_arme = FK2.id_type_arme
-ORDER BY id_arme ASC"""
+                                      INNER JOIN T_Munition AS FK1 ON T1.fk_munition = FK1.id_munition
+                                      INNER JOIN T_Type_arme AS FK2 ON T1.fk_type_arme = FK2.id_type_arme
+                                      ORDER BY id_arme ASC"""
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
             with MaBaseDeDonnee().connexion_bd.cursor() as mc_afficher:
                 # Envoi de la commande MySql

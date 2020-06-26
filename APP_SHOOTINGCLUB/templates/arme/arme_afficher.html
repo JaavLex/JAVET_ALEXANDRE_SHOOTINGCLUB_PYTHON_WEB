@@ -7,7 +7,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nom</th>
-                    <th>Munition</th>
+                    <th>Calibre</th>
                     <th>Type arme</th>
                     <th></th>
                     <th></th>
@@ -18,8 +18,8 @@
                 <tr>
                     <td>{{ row.id_arme }}</td>
                     <td>{{ row.nom_arme }}</td>
-                    <td>{{ row.fk_munition }}</td>
-                    <td>{{ row.fk_type_arme }}</td>
+                    <td>{{ row.calibre }}</td>
+                    <td>{{ row.type_arme }}</td>
                     <td> <a href="{{ url_for('arme_add') }}">Add</a> </td>
                     <td> <a href="{{ url_for('arme_edit', id_arme_edit_html=row.id_arme) }}">Edit</a> </td>
                     <td> <a href="{{ url_for('arme_select_delete', id_arme_delete_html=row.id_arme) }}">Delete</a> </td>
