@@ -20,3 +20,4 @@ from APP_SHOOTINGCLUB.PERSONNE import routes_gestion_personne
 from APP_SHOOTINGCLUB.PERSONNE_CONCOURS import routes_gestion_genres_films
 from APP_SHOOTINGCLUB.ARME import routes_gestion_arme
 from APP_SHOOTINGCLUB.MUNITION import routes_gestion_munition
+from APP_SHOOTINGCLUB.STAND_DE_TIR import routes_gestion_stand_de_tir

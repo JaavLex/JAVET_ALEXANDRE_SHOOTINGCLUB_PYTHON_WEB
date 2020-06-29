@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Edit stand_de_tir{% endblock %}
+{% block body %}
+    <div class="home">
+        <BODY bgcolor="yellow">
+            <form method="POST" action="{{ url_for('stand_de_tir_update') }}">
+                <div>
+
+                </div>
+                <br>
+                <table border="1" cellpadding="5" cellspacing="5">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Adresse</th>
+                            <th>Téléphone</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    {% for row in data %}
+                        <tr>
+                            <td><input type="hidden" name="id_stand_de_tir_edit_html" value="{{ row.id_stand_de_tir }}"></td>
+                            <td><input type = "text" name = "nom_stand_de_tir_html" value="{{ row.nom_stand_de_tir }}"/></td>
+                            <td><input type = "text" name = "adresse_stand_de_tir_html" value="{{ row.adresse_stand_de_tir }}"/></td>>
+                            <td><input type = "text" name = "tel_stand_de_tir_html" value="{{ row.tel_stand_de_tir }}"/></td>>
+                            <td><button class="btn btn-warning" type="submit">Update</button></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        </BODY>
+    </div>
+{% endblock %}
