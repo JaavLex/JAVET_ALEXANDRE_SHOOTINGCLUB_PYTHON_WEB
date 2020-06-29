@@ -3,7 +3,7 @@
 {% block body %}
     <div class="home">
         <BODY bgcolor="yellow">
-            <form method="POST" action="{{ url_for('personne_delete') }}">
+            <form method="POST" action="{{ url_for('arme_delete') }}">
                 <div>
 
                 </div>
@@ -19,7 +19,7 @@
                     </thead>
                     {% for row in data %}
                         <tr>
-                            <td><input type="hidden" name="id_personne_delete_html" value="{{ row.id_personne }}"></td>
+                            <td><input type="hidden" name="id_arme_delete_html" value="{{ row.id_arme }}"></td>
                             <td>{{ row.nom_arme }}</td>
                             <td>{{ row.fk_munition }}</td>
                             <td>{{ row.fk_type_arme }}</td>

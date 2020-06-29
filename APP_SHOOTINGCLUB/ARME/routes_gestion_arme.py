@@ -66,7 +66,7 @@ def arme_add():
             # OM 2019.04.04 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
             # des valeurs avec des caractères qui ne sont pas des lettres.
             # Accepte le trait d'union ou l'apostrophe, et l'espace entre deux mots, mais pas plus d'une occurence.
-            if not re.match("^([A-Z]|[a-z\u00C0-\u00FF])[A-Za-z\u00C0-\u00FF]*['\\- ]?[A-Za-z\u00C0-\u00FF]+$",
+            if not re.match("",
                                 nom_arme_add):
                 # OM 2019.03.28 Message humiliant à l'attention de l'utilisateur.
                 flash(f"Une entrée...incorrecte !! Pas de chiffres, de caractères spéciaux, d'espace à double, "
@@ -192,7 +192,7 @@ def arme_update():
             # On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
             # des valeurs avec des caractères qui ne sont pas des lettres.
             # Accepte le trait d'union ou l'apostrophe, et l'espace entre deux mots, mais pas plus d'une occurence.
-            if not re.match("^([A-Z]|[a-z\u00C0-\u00FF])[A-Za-z\u00C0-\u00FF]*['\\- ]?[A-Za-z\u00C0-\u00FF]+$", nom_arme_edit):
+            if not re.match("", nom_arme_edit):
                 # En cas d'erreur, conserve la saisie fausse, afin que l'utilisateur constate sa misérable faute
                 # Récupère le contenu du champ "intitule_arme" dans le formulaire HTML "armeEdit.html"
                 #nom_pers = request.values['name_edit_intitule_arme_html']
@@ -234,7 +234,7 @@ def arme_update():
                 TypeError) as erreur:
 
             print(erreur.args)
-            flash(f"problème arme update{erreur.args[0]}")
+            flash(f"problème arme update {erreur.args[0]}")
             # En cas de problème, mais surtout en cas de non respect
             # des régles "REGEX" dans le champ "name_edit_intitule_arme_html" alors on renvoie le formulaire "EDIT"
             return render_template('arme/arme_edit.html', data=valeur_edit_list)

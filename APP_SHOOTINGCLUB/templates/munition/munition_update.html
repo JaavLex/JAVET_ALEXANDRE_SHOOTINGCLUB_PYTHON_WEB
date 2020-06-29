@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}UPDATE Arme{% endblock %}
+{% block title %}UPDATE munition{% endblock %}
 {% block content %}
     <div class="home">
         <BODY bgcolor="yellow">
-            <form method="POST" action="{{ url_for('personne_update') }}">
+            <form method="POST" action="{{ url_for('munition_update') }}">
                 <div>
 
                 </div>
@@ -14,16 +14,14 @@
                             <th>ID</th>
                             <th>Nom</th>
                             <th>Munition</th>
-                            <th>Type arme</th>
                             <th></th>
                         </tr>
                     </thead>
                     {% for row in data %}
                         <tr>
-                            <td><input type="hidden" name="id_arme_edit_html" value="{{ row.id_personne }}"></td>
-                            <td><input type = "text" name = "nom_arme_html" value="{{ row.nom_arme }}"/></td>
-                            <td><input type = "text" name = "fk_munition_html" value="{{ row.fk_munition }}"/></td>
-                            <td><input type = "date" name = "fk_type_arme_html" value="{{ row.fk_type_arme }}"/></td>
+                            <td><input type="hidden" name="id_munition_edit_html" value="{{ row.id_munition }}"></td>
+                            <td><input type = "text" name = "calibre_html" value="{{ row.calibre }}"/></td>
+                            <td><input type = "number" name = "prix_p_50_html" value="{{ row.prix_p_50 }}"/></td>
                             <td><button class="btn btn-warning" type="submit">Update</button></td>
                         </tr>
                     {% endfor %}

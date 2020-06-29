@@ -54,7 +54,7 @@ class Gestionmunition():
         try:
             print(valeurs_insertion_dictionnaire)
             # OM 2020.04.07 C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
-            strsql_insert_munition = """INSERT INTO T_Munitions (id_munition, calibre, prix_p_50) VALUES (NULL, %(value_calibre)s, %(value_prix_p_50)s)"""
+            strsql_insert_munition = """INSERT INTO T_Munition (id_munition, calibre, prix_p_50) VALUES (NULL, %(value_calibre)s, %(value_prix_p_50)s)"""
             # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
             # la subtilité consiste à avoir une méthode "mabd_execute" dans la classe "MaBaseDeDonnee"
             # ainsi quand elle aura terminé l'insertion des données le destructeur de la classe "MaBaseDeDonnee"
