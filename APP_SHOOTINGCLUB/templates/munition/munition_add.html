@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %} Ajouter une munition{% endblock %}
+{% block body %}
+    <div class="home">
+        <BODY bgcolor="brown">
+        <form method="POST" action="">
+            <div>
+                {% if error %}
+                    <p class=error><strong>Error:</strong> {{ error }}
+                {% endif %}
+            </div>
+            <center>
+                <H1>Clavioter une nouvelle munition</H1> <br>
+                Nom <input type = "text" name= "calibre_html" /> <br>
+                Calibre <input type = "text" name= "calibre_html" /> <br>
+                <input type = "submit" value="Enregistrer l'munition">
+            </center>
+        </form>
+        </BODY>
+    </div>
+{% endblock %}

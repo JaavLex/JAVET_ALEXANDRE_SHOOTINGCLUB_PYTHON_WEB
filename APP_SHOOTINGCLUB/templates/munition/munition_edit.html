@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Edit Arme{% endblock %}
+{% block body %}
+    <div class="home">
+        <BODY bgcolor="yellow">
+            <form method="POST" action="{{ url_for('personne_update') }}">
+                <div>
+
+                </div>
+                <br>
+                <table border="1" cellpadding="5" cellspacing="5">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Munition</th>
+                            <th>Type arme</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    {% for row in data %}
+                        <tr>
+                            <td><input type="hidden" name="id_arme_edit_html" value="{{ row.id_personne }}"></td>
+                            <td><input type = "text" name = "nom_arme_html" value="{{ row.nom_arme }}"/></td>
+                            <td><input type = "text" name = "fk_munition_html" value="{{ row.fk_munition }}"/></td>
+                            <td><input type = "date" name = "fk_type_arme_html" value="{{ row.fk_type_arme }}"/></td>
+                            <td><button class="btn btn-warning" type="submit">Update</button></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        </BODY>
+    </div>
+{% endblock %}
