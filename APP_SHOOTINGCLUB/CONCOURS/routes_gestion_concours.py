@@ -127,7 +127,7 @@ def concours_add():
                 print(f"Données insérées !!")
                 # On va interpréter la "route" 'concours_afficher', car l'utilisateur
                 # doit voir le nouveau concours qu'il vient d'insérer.
-                return redirect(url_for('concours_afficher'))
+                return redirect(url_for('concours_afficher', id_concours_sel=0, order_by="ASC"))
 
         # OM 2020.04.16 ATTENTION à l'ordre des excepts très important de respecter l'ordre.
         except pymysql.err.IntegrityError as erreur:
@@ -143,11 +143,12 @@ def concours_add():
             flash(f"Autre erreur {erreur}")
             raise MonErreur(f"Autre erreur")
 
-        # OM 2020.04.16 ATTENTION à l'ordre des excepts très important de respecter l'ordre.
         except Exception as erreur:
             # OM 2020.04.09 On dérive "Exception" dans "MaBdErreurConnexion" fichier "erreurs.py"
             # Ainsi on peut avoir un message d'erreur personnalisé.
             raise MaBdErreurConnexion(f"RGG Exception {msg_erreurs['ErreurConnexionBD']['message']} et son status {msg_erreurs['ErreurConnexionBD']['status']}")
+
+        # OM 2020.04.16 ATTENTION à l'ordre des excepts très important de respecter l'ordre.
     # OM 2020.04.07 Envoie la page "HTML" au serveur.
     return render_template("concours/concours_add.html")
 
