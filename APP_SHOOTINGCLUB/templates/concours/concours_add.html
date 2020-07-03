@@ -1,22 +1,32 @@
 {% extends "base.html" %}
-{% block title %} Ajouter un concours{% endblock %}
+{% block title %} Ajouter un concours {% endblock %}
 {% block body %}
-    <div class="home">
-        <BODY bgcolor="brown">
-        <form method="POST" action="">
-            <div>
-                {% if error %}
-                    <p class=error><strong>Error:</strong> {{ error }}
-                {% endif %}
-            </div>
-            <center>
-                <H1>Clavioter un nouveau concours</H1> <br>
-                Date <input type = "date" name= "date_concours_html" /> <br>
-                Type <input type = "number" name= "type_concours_html" /> <br>
-                Stand de tir <input type = "number" name= "stand_de_tir_html" /> <br>
-                <input type = "submit" value="Enregistrer le concours">
-            </center>
-        </form>
-        </BODY>
-    </div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Planifier un concours
+			</p>
+			<form method="POST">
+				<div class="form-group">
+					<label for="Date_concours">
+						Date du concours
+					</label>
+					<input type ="date" class="form-control" name="date_concours_html" />
+                    <label for="type_concours">
+						Type du concours
+					</label>
+					<input type ="number" class="form-control" name="type_concours_html" />
+                    <label for="stand_de_tir">
+						Stand de tir
+					</label>
+					<input type ="number" class="form-control" name="stand_de_tir_html" />
+				</div>
+				<button type="submit" class="btn btn-primary">
+					Enregistrer le concours
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock %}

@@ -8,26 +8,60 @@
 
                 </div>
                 <br>
-                <table border="1" cellpadding="5" cellspacing="5">
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Munition</th>
-                            <th>Type arme</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    {% for row in data %}
-                        <tr>
-                            <td><input type="hidden" name="id_arme_delete_html" value="{{ row.id_arme }}"></td>
-                            <td>{{ row.nom_arme }}</td>
-                            <td>{{ row.fk_munition }}</td>
-                            <td>{{ row.fk_type_arme }}</td>
-                            <td><button class="btn btn-danger" type="submit">EFFACER</button></td>
-                        </tr>
-                    {% endfor %}
-                </table>
+           <table class="table table-bordered table-sm">
+            {% if data %}
+                <thead>
+                    <tr>
+                        <th class="align-middle">
+                            ID
+                        </th>
+                        <th class="align-middle">
+                            Nom de l'arme
+                        </th>
+                        <th class="align-middle">
+                            Calibre de l'arme
+                        </th>
+                        <th class="align-middle">
+                            Type d'arme
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                    </tr>
+                </thead>
+            {% endif %}
+
+            {% for row in data %}
+				<tbody>
+					<tr>
+                        <input type="hidden" name="id_arme_delete_html" value="{{ row.id_arme }}">
+						<td class="align-middle">
+							{{ row.id_arme }}
+						</td>
+						<td class="align-middle">
+							{{ row.nom_arme }}
+						</td>
+                        <td class="align-middle">
+							{{ row.fk_munition }}
+						</td>
+                        <td class="align-middle">
+							{{ row.fk_type_arme }}
+						</td>
+						<td class="text-center" class="align-middle">
+							<button class="btn btn-danger" type="submit">EFFACER</button>
+						</td>
+					</tr>
+				</tbody>
+            {% endfor %}
+			</table>
             </form>
         </BODY>
     </div>
 {% endblock %}
+

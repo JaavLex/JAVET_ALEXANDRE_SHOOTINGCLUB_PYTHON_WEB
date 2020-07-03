@@ -1,23 +1,36 @@
 {% extends "base.html" %}
-{% block title %} Ajouter une personne{% endblock %}
+{% block title %} Ajouter un membre de la société {% endblock %}
 {% block body %}
-    <div class="home">
-        <BODY bgcolor="brown">
-        <form method="POST" action="">
-            <div>
-                {% if error %}
-                    <p class=error><strong>Error:</strong> {{ error }}
-                {% endif %}
-            </div>
-            <center>
-                <H1>Clavioter une nouvelle personne</H1> <br>
-                Nom <input type = "text" name= "nom_pers_html" /> <br>
-                Prenom <input type = "text" name= "prenom_pers_html" /> <br>
-                Date de naissance <input type = "date" name= "date_de_naissance_html" /> <br>
-                Possession Arme <input type = "number" name= "possession_html" /> <br>
-                <input type = "submit" value="Enregistrer la personne">
-            </center>
-        </form>
-        </BODY>
-    </div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Enregistrer un membre de la société
+			</p>
+			<form method="POST">
+				<div class="form-group">
+					<label for="Nom">
+						Nom de la personne
+					</label>
+					<input type ="text" class="form-control" name="nom_pers_html" />
+                    <label for="Prenom">
+						Prenom de la personne
+					</label>
+					<input type ="text" class="form-control" name="prenom_pers_html" />
+                    <label for="Date_de_naissanxe">
+						Date de naissance de la personne
+					</label>
+					<input type ="date" class="form-control" name="date_de_naissance_html" />
+                    <label for="Possession_arme">
+						Est-ce que cette personne possède une arme ?
+					</label>
+					<input type ="number" class="form-control" name="possession_arme_html" />
+				</div>
+				<button type="submit" class="btn btn-primary">
+					Enregistrer le membre de la société
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock %}

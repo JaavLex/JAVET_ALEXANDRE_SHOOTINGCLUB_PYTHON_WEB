@@ -1,34 +1,50 @@
 {% extends "base.html" %}
 {% block title %}UPDATE Arme{% endblock %}
-{% block content %}
-    <div class="home">
-        <BODY bgcolor="yellow">
-            <form method="POST" action="{{ url_for('arme_update') }}">
-                <div>
-
-                </div>
-                <br>
-                <table border="1" cellpadding="5" cellspacing="5">
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Modifier cette arme.
+			</p>
+			<form method="POST" action="{{ url_for('arme_update') }}">
+                <table class="table table-bordered table-sm">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Munition</th>
-                            <th>Type arme</th>
-                            <th></th>
+                            <th>
+                            <th>
+                                Nom de l'arme
+                            </th>
+                            <th>
+                                Calibre
+                            </th>
+                            <th>
+                                Type de l'arme
+                            </th>
                         </tr>
                     </thead>
                     {% for row in data %}
-                        <tr>
-                            <td><input type="hidden" name="id_arme_edit_html" value="{{ row.id_arme }}"></td>
-                            <td><input type = "text" name = "nom_arme_html" value="{{ row.nom_arme }}"/></td>
-                            <td><input type = "number" name = "fk_munition_html" value="{{ row.fk_munition }}"/></td>
-                            <td><input type = "number" name = "fk_type_arme_html" value="{{ row.fk_type_arme }}"/></td>
-                            <td><button class="btn btn-warning" type="submit">Update</button></td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <input type="hidden" name="id_arme_edit_html" value="{{ row.id_arme }}"/>
+                                <td>
+                                    <input type = "text" name = "nom_arme_html" value="{{ row.nom_arme }}"/>
+                                </td>
+                                <td>
+                                    <input type = "number" name = "fk_munition_html" value="{{ row.fk_munition }}"/>
+                                </td>
+                                <td>
+                                    <input type = "number" name = "fk_type_arme_html" value="{{ row.fk_type_arme }}"/>
+                                </td>
+                                <td>
+                                    <button class="btn btn-warning" type="submit">Update</button>
+                                </td>
+                            </tr>
+                        </tbody>
                     {% endfor %}
                 </table>
-            </form>
-        </BODY>
-    </div>
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock %}

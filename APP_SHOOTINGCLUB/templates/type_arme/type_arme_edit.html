@@ -1,33 +1,27 @@
 {% extends "base.html" %}
-{% block title %}EDIT Munition{% endblock %}
+{% block title %}EDIT Type d'arme{% endblock %}
 {% block body %}
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Modifier cette munition.
+				Modifier ce type d'arme.
 			</p>
-			<form method="POST" action="{{ url_for('munition_update') }}">
+			<form method="POST" action="{{ url_for('type_arme_update') }}">
                 <table class="table table-bordered table-sm">
                     <thead>
                         <tr>
                             <th>
-                                Calibre
-                            </th>
-                            <th>
-                                Prix pour 50 cartouches
+                                Type d'arme
                             </th>
                         </tr>
                     </thead>
                     {% for row in data %}
                         <tbody>
                             <tr>
-                                <input type="hidden" name="id_munition_edit_html" value="{{ row.id_munition }}"/>
+                                <input type="hidden" name="id_type_arme_edit_html" value="{{ row.id_type_arme }}"/>
                                 <td>
-                                    <input type = "text" name = "calibre_html" value="{{ row.calibre }}"/>
-                                </td>
-                                <td>
-                                    <input type = "number" name = "prix_p_50_html" value="{{ row.prix_p_50 }}"/>
+                                    <input type = "text" name = "type_arme_html" value="{{ row.type_arme }}"/>
                                 </td>
                                 <td>
                                     <button class="btn btn-warning" type="submit">Update</button>

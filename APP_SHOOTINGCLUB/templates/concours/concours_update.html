@@ -1,34 +1,49 @@
 {% extends "base.html" %}
-{% block title %}UPDATE concours{% endblock %}
-{% block content %}
-    <div class="home">
-        <BODY bgcolor="yellow">
-            <form method="POST" action="{{ url_for('concours_update') }}">
-                <div>
-
-                </div>
-                <br>
-                <table border="1" cellpadding="5" cellspacing="5">
+{% block title %}Update Concours{% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Modifier ce concours.
+			</p>
+			<form method="POST" action="{{ url_for('concours_update') }}">
+                <table class="table table-bordered table-sm">
                     <thead>
                         <tr>
-                            <th>ID concours</th>
-                            <th>Date</th>
-                            <th>Type Concours</th>
-                            <th>Stand de tir</th>
-                            <th></th>
+                            <th>
+                                Date concours
+                            </th>
+                            <th>
+                                Type concours
+                            </th>
+                            <th>
+                                Stand de tir
+                            </th>
                         </tr>
                     </thead>
                     {% for row in data %}
-                        <tr>
-                            <td><input type="hidden" name="id_concours_edit_html" value="{{ row.id_concours }}"></td>
-                            <td><input type = "date" name = "date_concours_edit_html" value="{{ row.date_concours }}"/></td>
-                            <td><input type = "number" name = "type_concours_edit_html" value="{{ row.fk_type_concours }}"/></td>
-                            <td><input type = "number" name = "stand_de_tir_edit_html" value="{{ row.fk_stand_de_tir }}"/></td>
-                            <td><button class="btn btn-warning" type="submit">Update</button></td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <input type="hidden" name="id_concours_edit_html" value="{{ row.id_concours }}"/>
+                                <td>
+                                    <input type = "date" name = "date_concours_edit_html" value="{{ row.date_concours }}"/>
+                                </td>
+                                <td>
+                                    <input type = "number" name = "type_concours_edit_html" value="{{ row.fk_type_concours }}"/><
+                                </td>
+                                <td>
+                                    <input type = "number" name = "stand_de_tir_edit_html" value="{{ row.fk_stand_de_tir }}"/>
+                                </td>
+                                <td>
+                                    <button class="btn btn-warning" type="submit">Update</button>
+                                </td>
+                            </tr>
+                        </tbody>
                     {% endfor %}
                 </table>
-            </form>
-        </BODY>
-    </div>
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock %}

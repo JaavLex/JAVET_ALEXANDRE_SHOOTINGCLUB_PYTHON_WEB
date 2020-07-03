@@ -1,32 +1,87 @@
 {% extends "base.html" %}
-{% block title %} Afficher personne {% endblock %}
+{% block title %} Afficher les membres de la société. {% endblock %}
 {% block body %}
-        <br>
-        <table border="1" cellpadding="5" cellspacing="5">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Date de naissance</th>
-                    <th>Possession</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            {% for row in data %}
-                <tr>
-                    <td>{{ row.id_personne }}</td>
-                    <td>{{ row.nom_pers }}</td>
-                    <td>{{ row.prenom_pers }}</td>
-                    <td>{{ row.date_de_naissance }}</td>
-                    <td>{{ row.possession_arme }}</td>
-                    <td> <a href="{{ url_for('personne_add') }}">Add</a> </td>
-                    <td> <a href="{{ url_for('personne_edit', id_personne_edit_html=row.id_personne) }}">Edit</a> </td>
-                    <td> <a href="{{ url_for('personne_select_delete', id_personne_delete_html=row.id_personne) }}">Delete</a> </td>
-                </tr>
-            {% endfor %}
-        </table>
-{% endblock %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Liste des membres de la société.
+			</p>
+            <table class="table table-bordered table-sm">
+            {% if data %}
+                <thead>
+                    <tr>
+                        <th class="align-middle">
+                            ID
+                        </th>
+                        <th class="align-middle">
+                            Nom
+                        </th>
+                        <th class="align-middle">
+                            Prénom
+                        </th>
+                        <th class="align-middle">
+                            Date de naissance
+                        </th>
+                        <th class="align-middle">
+                            Possession d'arme
+                        </th>
+                        <th class="align-middle">
 
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                    </tr>
+                </thead>
+            {% endif %}
+
+            {% for row in data %}
+				<tbody>
+					<tr>
+						<td class="align-middle">
+							{{ row.id_personne }}
+						</td>
+						<td class="align-middle">
+							{{ row.nom_pers }}
+						</td>
+                        <td class="align-middle">
+							{{ row.prenom_pers }}
+						</td>
+                        <td class="align-middle">
+							{{ row.date_de_naissance }}
+						</td>
+                        <td class="align-middle">
+							{{ row.possession_arme }}
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-primary" href="{{ url_for('personne_add') }}" role="button">Ajouter</a>
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-warning" href="{{ url_for('personne_edit', id_personne_edit_html=row.id_personne) }}" role="button">Edit</a>
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-danger" href="{{ url_for('personne_select_delete', id_personne_delete_html=row.id_personne) }}" role="button">Delete</a>
+						</td>
+					</tr>
+				</tbody>
+            {% else %}
+				<tbody>
+					<tr>
+						<td>
+							Aucune personne.
+						</td>
+						<td>
+							<a class="btn btn-primary" href="{{ url_for('personne_add') }}" role="button">Ajouter</a>
+						</td>
+					</tr>
+				</tbody>
+            {% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

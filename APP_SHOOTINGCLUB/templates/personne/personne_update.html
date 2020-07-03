@@ -1,36 +1,55 @@
 {% extends "base.html" %}
-{% block title %}UPDATE personne{% endblock %}
-{% block content %}
-    <div class="home">
-        <BODY bgcolor="yellow">
-            <form method="POST" action="{{ url_for('personne_update') }}">
-                <div>
-
-                </div>
-                <br>
-                <table border="1" cellpadding="5" cellspacing="5">
+{% block title %}UPDATE Personne{% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Modifier cette personne.
+			</p>
+			<form method="POST" action="{{ url_for('personne_update') }}">
+                <table class="table table-bordered table-sm">
                     <thead>
                         <tr>
-                            <th>ID Personne</th>
-                            <th>Nom</th>
-                            <th>Prenom</th>
-                            <th>Date de naissance</th>
-                            <th>Possession arme</th>
-                            <th></th>
+                            <th>
+                                Nom
+                            </th>
+                            <th>
+                                Prénom
+                            </th>
+                            <th>
+                                Date de naissance
+                            </th>
+                            <th>
+                                Possession arme
+                            </th>
                         </tr>
                     </thead>
                     {% for row in data %}
-                        <tr>
-                            <td><input type="hidden" name="id_personne_edit_html" value="{{ row.id_personne }}"></td>
-                            <td><input type = "text" name = "nom_pers_html" value="{{ row.nom_pers }}"/></td>
-                            <td><input type = "text" name = "prenom_pers_html" value="{{ row.prenom_pers }}"/></td>
-                            <td><input type = "date" name = "date_de_naissance_html" value="{{ row.date_de_naissance }}"/></td>
-                            <td><input type = "number" name = "possession_arme_html" value="{{ row.possession_arme }}"/></td>
-                            <td><button class="btn btn-warning" type="submit">Update</button></td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <input type="hidden" name="id_personne_edit_html" value="{{ row.id_personne }}">
+                                <td>
+                                    <input type = "text" name = "nom_pers_html" value="{{ row.nom_pers }}"/>
+                                </td>
+                                <td>
+                                    <input type = "text" name = "prenom_pers_html" value="{{ row.prenom_pers }}"/>
+                                </td>
+                                <td>
+                                    <input type = "date" name = "date_de_naissance_html" value="{{ row.date_de_naissance }}"/>
+                                </td>
+                                <td>
+                                    <input type = "number" name = "possession_arme_html" value="{{ row.possession_arme }}"/>s
+                                </td>
+                                <td>
+                                    <button class="btn btn-warning" type="submit">Update</button>
+                                </td>
+                            </tr>
+                        </tbody>
                     {% endfor %}
                 </table>
-            </form>
-        </BODY>
-    </div>
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock %}

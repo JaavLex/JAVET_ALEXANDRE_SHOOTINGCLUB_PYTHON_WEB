@@ -1,30 +1,82 @@
 {% extends "base.html" %}
-{% block title %} Afficher Arme {% endblock %}
+{% block title %} Afficher la liste d'armes{% endblock %}
 {% block body %}
-        <br>
-        <table border="1" cellpadding="5" cellspacing="5">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Munition</th>
-                    <th>Type arme</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Armes à disposition.
+			</p>
+            <table class="table table-bordered table-sm">
+            {% if data %}
+                <thead>
+                    <tr>
+                        <th class="align-middle">
+                            ID
+                        </th>
+                        <th class="align-middle">
+                            Nom de l'arme
+                        </th>
+                        <th class="align-middle">
+                            Calibre de l'arme
+                        </th>
+                        <th class="align-middle">
+                            Type d'arme
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                    </tr>
+                </thead>
+            {% endif %}
+
             {% for row in data %}
-                <tr>
-                    <td>{{ row.id_arme }}</td>
-                    <td>{{ row.nom_arme }}</td>
-                    <td>{{ row.calibre }}</td>
-                    <td>{{ row.type_arme }}</td>
-                    <td> <a href="{{ url_for('arme_add') }}">Add</a> </td>
-                    <td> <a href="{{ url_for('arme_edit', id_arme_edit_html=row.id_arme) }}">Edit</a> </td>
-                    <td> <a href="{{ url_for('arme_select_delete', id_arme_delete_html=row.id_arme) }}">Delete</a> </td>
-                </tr>
+				<tbody>
+					<tr>
+						<td class="align-middle">
+							{{ row.id_arme }}
+						</td>
+						<td class="align-middle">
+							{{ row.nom_arme }}
+						</td>
+                        <td class="align-middle">
+							{{ row.calibre }}
+						</td>
+                        <td class="align-middle">
+							{{ row.type_arme }}
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-primary" href="{{ url_for('arme_add') }}" role="button">Ajouter</a>
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-warning" href="{{ url_for('arme_edit', id_arme_edit_html=row.id_arme) }}" role="button">Edit</a>
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-danger" href="{{ url_for('arme_select_delete', id_arme_delete_html=row.id_arme) }}" role="button">Delete</a>
+						</td>
+					</tr>
+				</tbody>
+            {% else %}
+				<tbody>
+					<tr>
+						<td>
+							Aucune arme.
+						</td>
+						<td>
+							<a class="btn btn-primary" href="{{ url_for('arme_add') }}" role="button">Ajouter</a>
+						</td>
+					</tr>
+				</tbody>
             {% endfor %}
-        </table>
+			</table>
+		</div>
+	</div>
+</div>
 {% endblock %}
 

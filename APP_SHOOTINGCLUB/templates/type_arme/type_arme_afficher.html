@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %} Afficher les munitions. {% endblock %}
+{% block title %} Afficher les type d'armes. {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Liste des munitions à disposition.
+				Liste des type d'armes.
 			</p>
             <table class="table table-bordered table-sm">
             {% if data %}
@@ -15,10 +15,7 @@
                             ID
                         </th>
                         <th class="align-middle">
-                            Calibre
-                        </th>
-                        <th class="align-middle">
-                            Prix pour 50 cartouches
+                            Types d'arme
                         </th>
                         <th class="align-middle">
 
@@ -37,22 +34,19 @@
 				<tbody>
 					<tr>
 						<td class="align-middle">
-							{{ row.id_munition }}
+							{{ row.id_type_arme }}
 						</td>
 						<td class="align-middle">
-							{{ row.calibre }}
-						</td>
-                        <td class="align-middle">
-							{{ row.prix_p_50 }}
+							{{ row.type_arme }}
 						</td>
 						<td class="text-center" class="align-middle">
-							<a class="btn btn-primary" href="{{ url_for('munition_add') }}" role="button">Ajouter</a>
+							<a class="btn btn-primary" href="{{ url_for('type_arme_add') }}" role="button">Ajouter</a>
 						</td>
 						<td class="text-center" class="align-middle">
-							<a class="btn btn-warning" href="{{ url_for('munition_edit', id_munition_edit_html=row.id_munition) }}" role="button">Edit</a>
+							<a class="btn btn-warning" href="{{ url_for('type_arme_edit', id_type_arme_edit_html=row.id_type_arme) }}" role="button">Edit</a>
 						</td>
 						<td class="text-center" class="align-middle">
-							<a class="btn btn-danger" href="{{ url_for('munition_select_delete', id_munition_delete_html=row.id_munition) }}" role="button">Delete</a>
+							<a class="btn btn-danger" href="{{ url_for('type_arme_select_delete', id_type_arme_delete_html=row.id_type_arme) }}" role="button">Delete</a>
 						</td>
 					</tr>
 				</tbody>
@@ -60,10 +54,10 @@
 				<tbody>
 					<tr>
 						<td>
-							Aucune munition.
+							Aucun type d'arme.
 						</td>
 						<td>
-							<a class="btn btn-primary" href="{{ url_for('munition_add') }}" role="button">Ajouter</a>
+							<a class="btn btn-primary" href="{{ url_for('type_arme_add') }}" role="button">Ajouter</a>
 						</td>
 					</tr>
 				</tbody>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}DELETE personne{% endblock %}
+{% block title %}DELETE Personne{% endblock %}
 {% block body %}
     <div class="home">
         <BODY bgcolor="yellow">
@@ -8,29 +8,60 @@
 
                 </div>
                 <br>
-                <table border="1" cellpadding="5" cellspacing="5">
-                    <thead>
-                        <tr>
-                            <th>ID Personne</th>
-                            <th>Nom</th>
-                            <th>Prenom</th>
-                            <th>Date de naissance</th>
-                            <th>Possession arme</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    {% for row in data %}
-                        <tr>
-                            <td><input type="hidden" name="id_personne_delete_html" value="{{ row.id_personne }}"></td>
-                            <td>{{ row.nom_pers }}</td>
-                            <td>{{ row.prenom_pers }}</td>
-                            <td>{{ row.date_de_naissance }}</td>
-                            <td>{{ row.possession_arme }}</td>
-                            <td><button class="btn btn-danger" type="submit">EFFACER</button></td>
-                        </tr>
-                    {% endfor %}
-                </table>
+           <table class="table table-bordered table-sm">
+            {% if data %}
+                <thead>
+                    <tr>
+                        <th class="align-middle">
+                            ID
+                        </th>
+                        <th class="align-middle">
+                            Nom
+                        </th>
+                        <th class="align-middle">
+                            Prénom
+                        </th>
+                        <th class="align-middle">
+                            Date de naissance
+                        </th>
+                        <th class="align-middle">
+                            Possession d'arme
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                    </tr>
+                </thead>
+            {% endif %}
+
+            {% for row in data %}
+				<tbody>
+					<tr>
+                        <input type="hidden" name="id_personne_delete_html" value="{{ row.id_personne }}">
+						<td class="align-middle">
+							{{ row.id_personne }}
+						</td>
+						<td class="align-middle">
+							{{ row.nom_pers }}
+						</td>
+                        <td class="align-middle">
+							{{ row.prenom_pers }}
+						</td>
+                        <td class="align-middle">
+							{{ row.date_de_naissance }}
+						</td>
+                        <td class="align-middle">
+							{{ row.possession_arme }}
+						</td>
+						<td class="text-center" class="align-middle">
+							<button class="btn btn-danger" type="submit">EFFACER</button>
+						</td>
+					</tr>
+				</tbody>
+            {% endfor %}
+			</table>
             </form>
         </BODY>
     </div>
 {% endblock %}
+

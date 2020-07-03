@@ -38,13 +38,13 @@
 						{{ row.possession_arme }}
 					  </th>
 					  <th class="align-middle">
-						<a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Ajouter</a>
+						<a class="btn btn-primary" href="{{ url_for('personne_add') }}" role="button">Ajouter</a>
 					  </th>
 					  <th class="align-middle">
-						<a class="btn btn-warning" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Edit</a>
+						<a class="btn btn-warning" href="{{ url_for('personne_edit', id_personne_edit_html=row.id_personne) }}" role="button">Edit</a>
 					  </th>
 					  <th class="align-middle">
-						<a class="btn btn-danger" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Delete</a>
+						<a class="btn btn-danger" href="{{ url_for('personne_select_delete', id_personne_delete_html=row.id_personne) }}" role="button">Delete</a>
 					  </th>
 					<tr>
 						<td class="align-middle">

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}DELETE Munition{% endblock %}
+{% block title %}DELETE Type d'arme{% endblock %}
 {% block body %}
     <div class="home">
         <BODY bgcolor="yellow">
-            <form method="POST" action="{{ url_for('munition_delete') }}">
+            <form method="POST" action="{{ url_for('type_arme_delete') }}">
                 <div>
 
                 </div>
@@ -13,13 +13,7 @@
                 <thead>
                     <tr>
                         <th class="align-middle">
-                            ID
-                        </th>
-                        <th class="align-middle">
-                            Calibre
-                        </th>
-                        <th class="align-middle">
-                            Prix pour 50 cartouches
+                            Type d'arme
                         </th>
                         <th class="align-middle">
 
@@ -31,15 +25,9 @@
             {% for row in data %}
 				<tbody>
 					<tr>
-                        <input type="hidden" name="id_munition_delete_html" value="{{ row.id_munition }}">
+                        <input type="hidden" name="id_type_arme_delete_html" value="{{ row.id_type_arme }}">
 						<td class="align-middle">
-							{{ row.id_munition }}
-						</td>
-						<td class="align-middle">
-							{{ row.calibre }}
-						</td>
-                        <td class="align-middle">
-							{{ row.prix_p_50 }}
+							{{ row.id_type_arme }}
 						</td>
 						<td class="text-center" class="align-middle">
 							<button class="btn btn-danger" type="submit">EFFACER</button>

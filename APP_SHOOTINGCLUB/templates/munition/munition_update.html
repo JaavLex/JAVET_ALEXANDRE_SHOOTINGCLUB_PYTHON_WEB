@@ -1,32 +1,43 @@
 {% extends "base.html" %}
-{% block title %}UPDATE munition{% endblock %}
-{% block content %}
-    <div class="home">
-        <BODY bgcolor="yellow">
-            <form method="POST" action="{{ url_for('munition_update') }}">
-                <div>
-
-                </div>
-                <br>
-                <table border="1" cellpadding="5" cellspacing="5">
+{% block title %}UPDATE Munition{% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Modifier cette munition.
+			</p>
+			<form method="POST" action="{{ url_for('munition_update') }}">
+                <table class="table table-bordered table-sm">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Munition</th>
-                            <th></th>
+                            <th>
+                                Calibre
+                            </th>
+                            <th>
+                                Prix pour 50 cartouches
+                            </th>
                         </tr>
                     </thead>
                     {% for row in data %}
-                        <tr>
-                            <td><input type="hidden" name="id_munition_edit_html" value="{{ row.id_munition }}"></td>
-                            <td><input type = "text" name = "calibre_html" value="{{ row.calibre }}"/></td>
-                            <td><input type = "number" name = "prix_p_50_html" value="{{ row.prix_p_50 }}"/></td>
-                            <td><button class="btn btn-warning" type="submit">Update</button></td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <input type="hidden" name="id_concours_edit_html" value="{{ row.id_munition }}"/>
+                                <td>
+                                    <input type = "text" name = "calibre_html" value="{{ row.calibre }}"/>
+                                </td>
+                                <td>
+                                    <input type = "number" name = "prix_p_50_html" value="{{ row.prix_p_50 }}"/>
+                                </td>
+                                <td>
+                                    <button class="btn btn-warning" type="submit">Update</button>
+                                </td>
+                            </tr>
+                        </tbody>
                     {% endfor %}
                 </table>
-            </form>
-        </BODY>
-    </div>
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock %}

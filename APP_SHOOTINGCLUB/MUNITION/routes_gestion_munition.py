@@ -186,7 +186,7 @@ def munition_update():
 
             # Récupère le contenu du champ "intitule_munition" dans le formulaire HTML "munitionEdit.html"
 
-            valeur_edit_list = [{'id_munition': id_munition_edit, 'nom_munition': calibre_edit, 'fk_munition': prix_p_50_edit}]
+            valeur_edit_list = [{'id_munition': id_munition_edit, 'calibre': calibre_edit, 'prix_p_50': prix_p_50_edit}]
             # On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
             # des valeurs avec des caractères qui ne sont pas des lettres.
             # Accepte le trait d'union ou l'apostrophe, et l'espace entre deux mots, mais pas plus d'une occurence.
@@ -202,7 +202,7 @@ def munition_update():
                 # Constitution d'une liste pour que le formulaire d'édition "munition_edit.html" affiche à nouveau
                 # la possibilité de modifier l'entrée
                 # Exemple d'une liste : [{'id_munition': 13, 'intitule_munition': 'philosophique'}]
-                valeur_edit_list = [{'id_munition': id_munition_edit, 'nom_munition': calibre_edit, 'fk_munition': prix_p_50_edit}]
+                valeur_edit_list = [{'id_munition': id_munition_edit, 'calibre': calibre_edit, 'prix_p_50': prix_p_50_edit}]
 
                 # DEBUG bon marché :
                 # Pour afficher le contenu et le type de valeurs passées au formulaire "munition_edit.html"

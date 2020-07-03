@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %} Ajouter un type d'arme. {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Ajouter un type d'arme.
+			</p>
+			<form method="POST">
+				<div class="form-group">
+					<label for="Type_arme">
+						Type d'arme
+					</label>
+					<input type ="text" class="form-control" name="type_arme_html" />
+				</div>
+				<button type="submit" class="btn btn-primary">
+					Enregistrer le type d'arme.
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,41 +1,87 @@
 {% extends "base.html" %}
-{% block title %} Afficher concours {% endblock %}
+{% block title %} Afficher les concours. {% endblock %}
 {% block body %}
-    <div class="home">
-        
-        <form method="POST" action="">
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Liste des concours.
+			</p>
+            <table class="table table-bordered table-sm">
+            {% if data %}
+                <thead>
+                    <tr>
+                        <th class="align-middle">
+                            ID
+                        </th>
+                        <th class="align-middle">
+                            Date du concours
+                        </th>
+                        <th class="align-middle">
+                            Type du concours
+                        </th>
+                        <th class="align-middle">
+                            Nom du stand de tir
+                        </th>
+                        <th class="align-middle">
+                            Adresse du stand de tir
+                        </th>
+                        <th class="align-middle">
 
-        <div>
-            {{ msgHtml }}
-        </div>
-        <br>
-        <table border="1" cellpadding="5" cellspacing="5">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Date</th>
-                    <th>Type</th>
-                    <th>Stand de tir</th>
-                    <th>Adresse</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                    </tr>
+                </thead>
+            {% endif %}
+
             {% for row in data %}
-                <tr>
-                    <td>{{ row.id_concours }}</td>
-                    <td>{{ row.date_concours }}</td>
-                    <td>{{ row.type_concours|default("", True) }}</td>
-                    <td>{{ row.nom_stand_de_tir|default("", True) }}</td>
-                    <td>{{ row.adresse_stand_de_tir|default("", True) }}</td>
-                    <td> <a href="{{ url_for('concours_edit', id_concours_edit_html=row.id_concours) }}">Edit</a> </td>
-                    <td> <a href="{{ url_for('concours_select_delete', id_concours_delete_html=row.id_concours) }}">Delete</a> </td>
-                    <td> <a href="{{ url_for('concours_add') }}">Add</a> </td>
-                </tr>
+				<tbody>
+					<tr>
+						<td class="align-middle">
+							{{ row.id_concours }}
+						</td>
+						<td class="align-middle">
+							{{ row.date_concours }}
+						</td>
+                        <td class="align-middle">
+							{{ row.type_concours }}
+						</td>
+                        <td class="align-middle">
+							{{ row.nom_stand_de_tir }}
+						</td>
+                        <td class="align-middle">
+							{{ row.adresse_stand_de_tir }}
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-primary" href="{{ url_for('concours_add') }}" role="button">Ajouter</a>
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-warning" href="{{ url_for('concours_edit', id_concours_edit_html=row.id_concours) }}" role="button">Edit</a>
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-danger" href="{{ url_for('concours_select_delete', id_concours_delete_html=row.id_concours) }}" role="button">Delete</a>
+						</td>
+					</tr>
+				</tbody>
+            {% else %}
+				<tbody>
+					<tr>
+						<td>
+							Aucun concours.
+						</td>
+						<td>
+							<a class="btn btn-primary" href="{{ url_for('concours_add') }}" role="button">Ajouter</a>
+						</td>
+					</tr>
+				</tbody>
             {% endfor %}
-        </table>
-        </form>
-        
-    </div>
+			</table>
+		</div>
+	</div>
+</div>
 {% endblock %}

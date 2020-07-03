@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}DELETE concours{% endblock %}
+{% block title %}DELETE Concours{% endblock %}
 {% block body %}
     <div class="home">
         <BODY bgcolor="yellow">
@@ -8,29 +8,66 @@
 
                 </div>
                 <br>
-                <table border="1" cellpadding="5" cellspacing="5">
-                    <thead>
-                        <tr>
-                            <th>ID Concours</th>
-                            <th>Date concours</th>
-                            <th>Type concours</th>
-                            <th>Stand de tir</th>
-                            <th>Adresse</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    {% for row in data %}
-                        <tr>
-                            <td><input type="hidden" name="id_concours_delete_html" value="{{ row.id_concours }}"></td>
-                            <td>{{ row.date_concours }}</td>
-                            <td>{{ row.type_concours }}</td>
-                            <td>{{ row.stand_de_tir }}</td>
-                            <td>{{ row.adresse_stand_de_tir }}</td>
-                            <td><button class="btn btn-danger" type="submit">EFFACER</button></td>
-                        </tr>
-                    {% endfor %}
-                </table>
+           <table class="table table-bordered table-sm">
+            {% if data %}
+                <thead>
+                    <tr>
+                        <th class="align-middle">
+                            ID
+                        </th>
+                        <th class="align-middle">
+                            Date du concours
+                        </th>
+                        <th class="align-middle">
+                            Type du concours
+                        </th>
+                        <th class="align-middle">
+                            Nom du stand de tir
+                        </th>
+                        <th class="align-middle">
+                            Adresse du stand de tir
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                    </tr>
+                </thead>
+            {% endif %}
+
+            {% for row in data %}
+				<tbody>
+					<tr>
+                        <input type="hidden" name="id_concours_delete_html" value="{{ row.id_concours }}">
+						<td class="align-middle">
+							{{ row.id_concours }}
+						</td>
+						<td class="align-middle">
+							{{ row.date_concours }}
+						</td>
+                        <td class="align-middle">
+							{{ row.type_concours }}
+						</td>
+                        <td class="align-middle">
+							{{ row.nom_stand_de_tir }}
+						</td>
+                        <td class="align-middle">
+							{{ row.adresse_stand_de_tir }}
+						</td>
+						<td class="text-center" class="align-middle">
+							<button class="btn btn-danger" type="submit">EFFACER</button>
+						</td>
+					</tr>
+				</tbody>
+            {% endfor %}
+			</table>
             </form>
         </BODY>
     </div>
 {% endblock %}
+

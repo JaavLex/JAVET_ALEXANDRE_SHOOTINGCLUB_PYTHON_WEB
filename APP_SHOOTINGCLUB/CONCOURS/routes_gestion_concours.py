@@ -109,7 +109,7 @@ def concours_add():
             # OM 2019.04.04 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
             # des valeurs avec des caractères qui ne sont pas des lettres.
             # Accepte le trait d'union ou l'apostrophe, et l'espace entre deux mots, mais pas plus d'une occurence.
-            if not re.match("(.*?)",
+            if not re.match("",
                                 date_concours_add):
                 # OM 2019.03.28 Message humiliant à l'attention de l'utilisateur.
                 flash(f"Une entrée...incorrecte !! Pas de chiffres, de caractères spéciaux, d'espace à double, "
@@ -209,7 +209,7 @@ def concours_delete():
             # OM 2019.04.02 Envoie la page "HTML" au serveur. On passe un message d'information dans "message_html"
 
             # On affiche les concours
-            return redirect(url_for('concours_afficher'))
+            return redirect(url_for('concours_afficher', order_by='ASC', id_concours_sel=0))
 
 
 

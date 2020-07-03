@@ -1,21 +1,28 @@
 {% extends "base.html" %}
-{% block title %} Ajouter une munition{% endblock %}
+{% block title %} Ajouter un type de munition {% endblock %}
 {% block body %}
-    <div class="home">
-        <BODY bgcolor="brown">
-        <form method="POST" action="">
-            <div>
-                {% if error %}
-                    <p class=error><strong>Error:</strong> {{ error }}
-                {% endif %}
-            </div>
-            <center>
-                <H1>Clavioter une nouvelle munition</H1> <br>
-                Calibre <input type = "text" name= "calibre_html" /> <br>
-                Prix pour 50 cartouches <input type = "number" name= "prix_p_50_html" /> <br>
-                <input type = "submit" value="Enregistrer la munition">
-            </center>
-        </form>
-        </BODY>
-    </div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Ajouter une munition en armurerie
+			</p>
+			<form method="POST">
+				<div class="form-group">
+					<label for="Calibre">
+						Calibre
+					</label>
+					<input type ="text" class="form-control" name="calibre_html" />
+                    <label for="Prix_p_50">
+						Prix pour 50 cartouches
+					</label>
+					<input type ="number" class="form-control" name="prix_p_50_html" />
+				</div>
+				<button type="submit" class="btn btn-primary">
+					Enregistrer le type de munition
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock %}
