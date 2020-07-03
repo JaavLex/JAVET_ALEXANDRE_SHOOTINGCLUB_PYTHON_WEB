@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %} Ajouter un stand_de_tir{% endblock %}
+{% block body %}
+    <div class="home">
+        <BODY bgcolor="brown">
+        <form method="POST" action="">
+            <div>
+                {% if error %}
+                    <p class=error><strong>Error:</strong> {{ error }}
+                {% endif %}
+            </div>
+            <center>
+                <H1>Clavioter une nouvelle stand_de_tir</H1> <br>
+                Nom <input type = "text" name= "nom_stand_de_tir_html" /> <br>
+                Adresse <input type = "text" name= "adresse_stand_de_tir_html" /> <br>
+                Téléphone <input type = "text" name= "tel_stand_de_tir_html" /> <br>
+                <input type = "submit" value="Enregistrer le stand_de_tir">
+            </center>
+        </form>
+        </BODY>
+    </div>
+{% endblock %}

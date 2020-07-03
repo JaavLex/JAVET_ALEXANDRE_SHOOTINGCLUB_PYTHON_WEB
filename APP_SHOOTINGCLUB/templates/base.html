@@ -57,6 +57,7 @@
 			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
 			  <a class="dropdown-item" href="{{ url_for('personne_afficher') }}">Membres de la société</a>
 			  <a class="dropdown-item" href="{{ url_for('concours_afficher', order_by='ASC', id_concours_sel=0) }}">Concours de tir</a>
+			  <a class="dropdown-item" href="{{ url_for('stand_de_tir_afficher') }}">Stands de tir</a>
 			  <a class="dropdown-item" href="{{ url_for('concours_personne_afficher_concat', order_by='ASC', id_personne_sel=0) }}">Présences</a>
 			  <a class="dropdown-item" href="{{ url_for('arme_afficher') }}">Armes de location</a>
 			  <a class="dropdown-item" href="{{ url_for('munition_afficher') }}">Munitions en armurerie</a>
